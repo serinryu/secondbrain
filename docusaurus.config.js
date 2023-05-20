@@ -1,32 +1,17 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
-
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
+  title: 'Serin Ryu',
   tagline: 'I am Serin Ryu, traveling the WWW.',
   favicon: 'img/favicon.ico',
-
-  // Set the production url of your site here
   url: 'https://your-docusaurus-test-site.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
-
+  organizationName: 'serinryu', 
+  projectName: 'second-brain', 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -38,21 +23,33 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          path: 'docs',
+          sidebarPath: require.resolve('./config/sidebars.js'),
+          routeBasePath: '/r',
+          breadcrumbs: true,
+          sidebarCollapsed: true,
+          sidebarCollapsible: true,
+          showLastUpdateAuthor: false,
+          showLastUpdateTime: false,
+          editUrl: ({ docPath }) => {
+            return `https://github.com/anaclumos/extracranial/tree/main/Research/${docPath}`
+          },
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          blogTitle: 'Vision',
+          blogDescription: 'I am Serin',
+          postsPerPage: 'ALL',
+          blogSidebarCount: 'ALL',
+          blogSidebarTitle: 'Vision',
+          routeBasePath: '/blog',
+          authorsMapPath: 'authors.yml',
+          editUrl: ({ locale, blogDirPath, blogPath }) => {
+            return `https://github.com/anaclumos/extracranial/tree/main/posts/${blogPath.replace('/index.md', '')}/${locale}.md`
+          },
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./src/css/global.css'),
         },
       }),
     ],
@@ -71,12 +68,17 @@ const config = {
         },
         items: [
           {
+            to: '/r/',
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'sidebar',
             position: 'left',
             label: 'Tutorial',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            to: '/blog', 
+            position: 'left',
+            label: 'Blog',
+          },
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
