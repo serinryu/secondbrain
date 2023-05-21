@@ -24,7 +24,7 @@ const config = {
       ({
         docs: {
           path: 'docs',
-          sidebarPath: require.resolve('./config/sidebars.js'),
+          sidebarPath: require.resolve('./config/sidebars.js').docsSidebar,
           routeBasePath: '/r',
           breadcrumbs: true,
           sidebarCollapsed: true,
@@ -32,20 +32,30 @@ const config = {
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
           editUrl: ({ docPath }) => {
-            return `https://github.com/anaclumos/extracranial/tree/main/Research/${docPath}`
+            return `https://github.com/serinryu/secondbrain/tree/main/docs/${docPath}`
           },
         },
         blog: {
+          path: 'blog',
+          /*
+          sidebarPath: require.resolve('./config/sidebars.js').blogSidebar,
+          routeBasePath: '/blog',
+          breadcrumbs: true,
+          sidebarCollapsed: true,
+          sidebarCollapsible: true,
+          showLastUpdateAuthor: false,
+          showLastUpdateTime: false,
           showReadingTime: true,
+          */
           blogTitle: 'Vision',
           blogDescription: 'I am Serin',
           postsPerPage: 'ALL',
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'Vision',
           routeBasePath: '/blog',
-          authorsMapPath: 'authors.yml',
+          
           editUrl: ({ locale, blogDirPath, blogPath }) => {
-            return `https://github.com/anaclumos/extracranial/tree/main/posts/${blogPath.replace('/index.md', '')}/${locale}.md`
+            return `https://github.com/serinryu/secondbrain/tree/main/posts/${blogPath.replace('/index.md', '')}/${locale}.md`
           },
         },
         theme: {
@@ -72,10 +82,10 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'sidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Archive',
           },
           {
-            to: '/blog', 
+            to: '/blog/', 
             position: 'left',
             label: 'Blog',
           },
@@ -93,7 +103,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Archieve',
                 to: '/docs/intro',
               },
             ],
