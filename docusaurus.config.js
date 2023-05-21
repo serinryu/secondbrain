@@ -24,7 +24,7 @@ const config = {
       ({
         docs: {
           path: 'docs',
-          sidebarPath: require.resolve('./config/sidebars.js').docsSidebar,
+          sidebarPath: require.resolve('./config/sidebars.js'),
           routeBasePath: '/r',
           breadcrumbs: true,
           sidebarCollapsed: true,
@@ -36,24 +36,12 @@ const config = {
           },
         },
         blog: {
-          path: 'blog',
-          /*
-          sidebarPath: require.resolve('./config/sidebars.js').blogSidebar,
-          routeBasePath: '/blog',
-          breadcrumbs: true,
-          sidebarCollapsed: true,
-          sidebarCollapsible: true,
-          showLastUpdateAuthor: false,
-          showLastUpdateTime: false,
-          showReadingTime: true,
-          */
           blogTitle: 'Vision',
           blogDescription: 'I am Serin',
           postsPerPage: 'ALL',
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'Vision',
           routeBasePath: '/blog',
-          
           editUrl: ({ locale, blogDirPath, blogPath }) => {
             return `https://github.com/serinryu/secondbrain/tree/main/posts/${blogPath.replace('/index.md', '')}/${locale}.md`
           },
@@ -80,7 +68,7 @@ const config = {
           {
             to: '/r/',
             type: 'docSidebar',
-            sidebarId: 'sidebar',
+            sidebarId: 'docSidebar',
             position: 'left',
             label: 'Archive',
           },
