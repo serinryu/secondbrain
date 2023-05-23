@@ -1,19 +1,9 @@
 ---
-slug: mdx-blog-post
-title: MDX Blog Post
-tags: [docusaurus]
+slug: Intro
+title: First Blog
+tags: [Intro]
 ---
 
-Blog posts support [Docusaurus Markdown features](https://docusaurus.io/docs/markdown-features), such as [MDX](https://mdxjs.com/).
+# This is first blog
 
-:::tip
-
-Use the power of React to create interactive blog posts.
-
-```js
-<button onClick={() => alert('button clicked!')}>Click me!</button>
-```
-
-<button onClick={() => alert('button clicked!')}>Click me!</button>
-
-:::
+Yes, it is.

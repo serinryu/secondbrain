@@ -31,20 +31,20 @@ const config = {
           sidebarCollapsible: true,
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
-          editUrl: ({ docPath }) => {
-            return `https://github.com/serinryu/secondbrain/tree/main/docs/${docPath}`
-          },
         },
+        /*
         blog: {
-          blogTitle: 'About',
+          blogTitle: 'Blog',
           blogDescription: 'I am Serin',
           postsPerPage: 'ALL',
           blogSidebarCount: 'ALL',
-          blogSidebarTitle: 'About',
-          routeBasePath: '/about',
-          editUrl: ({ locale, blogDirPath, blogPath }) => {
-            return `https://github.com/serinryu/secondbrain/tree/main/posts/${blogPath.replace('/index.md', '')}/${locale}.md`
-          },
+          blogSidebarTitle: 'blog',
+          showReadingTime: false,
+          routeBasePath: '/blog',
+        },
+        */
+        pages: {
+          routeBasePath: '/',
         },
         theme: {
           customCss: require.resolve('./src/css/global.css'),
@@ -71,8 +71,15 @@ const config = {
             position: 'left',
             label: 'My Wiki',
           },
+          /*
           {
-            to: '/about/', 
+            to: '/blog/', 
+            position: 'left',
+            label: 'blog',
+          },
+          */
+          {
+            to: '/about',
             position: 'left',
             label: 'About',
           },
@@ -90,16 +97,12 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Medium',
+                href: 'https://medium.com/@serin0404',
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: 'https://twitter.com/serinryu',
               },
             ],
           },
@@ -107,17 +110,13 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/about',
-              },
-              {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/serinryu',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Serin Ryu. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Serin Ryu.`,
       },
       prism: {
         theme: lightCodeTheme,
