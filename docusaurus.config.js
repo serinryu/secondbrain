@@ -5,7 +5,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Serin Ryu',
   tagline: 'I am Serin Ryu, traveling the WWW.',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/building.png',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   organizationName: 'serinryu', 
@@ -25,7 +25,7 @@ const config = {
         docs: {
           path: 'docs',
           sidebarPath: require.resolve('./config/sidebars.js'),
-          routeBasePath: '/r',
+          routeBasePath: '/wiki',
           breadcrumbs: true,
           sidebarCollapsed: true,
           sidebarCollapsible: true,
@@ -36,12 +36,12 @@ const config = {
           },
         },
         blog: {
-          blogTitle: 'Vision',
+          blogTitle: 'About',
           blogDescription: 'I am Serin',
           postsPerPage: 'ALL',
           blogSidebarCount: 'ALL',
-          blogSidebarTitle: 'Vision',
-          routeBasePath: '/blog',
+          blogSidebarTitle: 'About',
+          routeBasePath: '/about',
           editUrl: ({ locale, blogDirPath, blogPath }) => {
             return `https://github.com/serinryu/secondbrain/tree/main/posts/${blogPath.replace('/index.md', '')}/${locale}.md`
           },
@@ -56,29 +56,28 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/building.png',
       navbar: {
-        title: 'My Site',
+        title: "Serin's Second Brain",
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/building.png',
         },
         items: [
           {
-            to: '/r/',
+            to: '/wiki/',
             type: 'docSidebar',
             sidebarId: 'docSidebar',
             position: 'left',
-            label: 'Archive',
+            label: 'My Wiki',
           },
           {
-            to: '/blog/', 
+            to: '/about/', 
             position: 'left',
-            label: 'Blog',
+            label: 'About',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/serinryu',
             label: 'GitHub',
             position: 'right',
           },
@@ -91,7 +90,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Archieve',
+                label: 'My Wiki',
                 to: '/docs/intro',
               },
             ],
@@ -118,7 +117,7 @@ const config = {
             items: [
               {
                 label: 'Blog',
-                to: '/blog',
+                to: '/about',
               },
               {
                 label: 'GitHub',
@@ -127,7 +126,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Serin Ryu. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
