@@ -1,0 +1,8 @@
+{
+  "label": "Spring",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "The core concept of Spring"
+  }
+}
