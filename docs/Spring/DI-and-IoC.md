@@ -87,13 +87,13 @@ public class ClubService{
 
 The above example shows a class that is dependency-injected with Setter injection. The dependencies are injected by setter method. 
 
-** Yes..it is hard to implement DI yourself… ** 
+**Yes..it is hard to implement DI yourself…**
 
 So far, we've learned what dependency injections are and why they're needed. As mentioned above, in the case of a very simple program, dependency injection can be implemented with writing codes by developers line by line. But what if there are dozens of classes that depend on each other? The developers are likely to make mistakes for sure.
 
 Although you can use design patterns such as *Factory*, *Abstract Factory*, *Builder*, *Decorator*, and *Service Locator on your own*, you must implement them yourself in your application. Spring Framework simply implements these patterns internally, providing you with an infrastructure to use in a formalized way.
 
-## 3. Spring supports DI
+## 3. Spring supports DI 🙂
 
 The Spring solves this inconvenience. The Spring helps to inject dependencies of bunches of classes on behalf of developers.
 
@@ -113,6 +113,10 @@ In Spring, the objects that form the backbone of your application and that are m
 
 A bean is an object that is created, configured, and managed by a Spring IoC container. These beans are created with the configuration metadata that you supply to the container. Here we are going to discuss how to create a Spring Bean in 3 different ways as follows:
 
+## 4. How?
+
+### 4-1. How Spring Define the Beans
+
 ### (1) Creating Bean Inside an XML Configuration File (beans.xml)
 
 One of the most popular ways to create a spring bean is to define a bean in an XML configuration file something like this. In this way, you can create beans in spring.
@@ -127,20 +131,61 @@ xsi:schemaLocation="[http://www.springframework.org/schema/beans](http://www.spr
 </beans>
 ```
 
-### (2) Using @Component Annotation
-
-Spring Annotations are a form of metadata that provides data about a program. Annotations are used to provide supplemental information about a program. **@Component** is an annotation that allows Spring to automatically detect the custom beans.
-
-### (3) Using @Bean Annotation
+### (2) Creating Beans by Using @Bean Annotation
 
 One of the most important annotations in spring is the **@Bean annotation** which is applied on a method to specify that it returns a bean to be managed by Spring context. Spring Bean annotation is usually declared in Configuration classes methods.
 
-Overall, beans are typically defined in the Spring configuration files or through annotations, specifying their scope, dependencies, and other configurations. Once the beans are created by one of three ways above, Spring can implement dependency Injection. For example, this is the case that Spring Container finds a Bean that is already created and managed in Container, and injects dependency.
+> **@Configuration:** It is a class-level annotation. The class annotated with @Configuration used by Spring Containers as a source of bean definitions.
+
+> **@Bean:** It is a method-level annotation. It is an alternative of XML bean tag. It tells the method to produce a bean to be managed by Spring Container.
+
+
+```java
+@Configuration  
+public class Vehicle{  
+	@Bean 
+	Vehicle engine(){  
+		return new Vehicle();  
+	}  
+}
+```
+
+### (3) Creating Beans by Using @Component Annotation
+
+Spring Annotations are a form of metadata that provides data about a program. Annotations are used to provide supplemental information about a program. **@Component** is an annotation that allows Spring to automatically detect the custom beans.
+
+> **@Component:** It is a class-level annotation. It is used to mark a Java class as a Spring Bean.
+
+> **@ComponentScan:** You enable auto-scanning (default using current folder path), optionally you can specify an basePackage where spring will found yours beans. All of your application components (`@Component`, `@Service`, `@Repository`, `@Controller` etc.) are automatically registered as Spring Beans.
+
+> **@Configuration:** It is a class-level annotation. The class annotated with @Configuration used by Spring Containers as a source of bean definitions.
+
+```java
+@Component  
+public class Student{  
+.......  
+}
+```
+
+```java
+@ComponentScan(basePackages = "com.abc") 
+@Configuration  
+public class ScanComponent{  
+	// ...  
+}
+```
+
+### 4-2. How Spring Inject Dependency
+
+Overall, beans are typically defined in the Spring configuration files or through annotations, specifying their scope, dependencies, and other configurations. Once the beans are created by one of three ways above, Spring can implement dependency Injection automatically with @Autowired.
+
+> **@Autowired:** Spring provides annotation-based auto-wiring by providing @Autowired annotation. It is used to autowire spring bean on setter methods, instance variable, and constructor. When we use @Autowired annotation, the spring container auto-wires the bean by matching data-type.
+> 
 
 ```java
 // Constructor-based dependency injection with Spring's @Autowired
 
-@Service
+@Component
 public class ClubService{
   // ClubService has a dependency on a FileClubRepository
 	private final ClubRepository clubRepository;
@@ -157,7 +202,9 @@ public class ClubService{
 }
 ```
 
-@Autowired is an annotation that automatically finds a Bean (ClubRepository type) in Spring Container. Of course, a ClubRepository type of Bean should be already in Spring Container, otherwise @Autowired couldn’t find it in the container.
+@Autowired is an annotation that automatically finds a Bean (which is ClubRepository type) in Spring Container. Of course, a ClubRepository type of Bean should be already in Spring Container, otherwise @Autowired couldn’t find it in the container.
+
+You are free to use any of the standard Spring Framework techniques to define your beans and their injected dependencies. For simplicity, we often find that using `@ComponentScan` (to find your beans) and using `@Autowired` (to do constructor injection) works well.
 
 ---
 
@@ -166,3 +213,5 @@ Reference.
 [https://docs.spring.io/spring-framework/reference/core/beans/introduction.html](https://docs.spring.io/spring-framework/reference/core/beans/introduction.html)
 
 [https://www.educative.io/answers/what-is-inversion-of-control](https://www.educative.io/answers/what-is-inversion-of-control)
+
+[https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/using-boot-spring-beans-and-dependency-injection.html](https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/using-boot-spring-beans-and-dependency-injection.html)
