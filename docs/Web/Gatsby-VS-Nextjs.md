@@ -10,7 +10,7 @@ sidebar_position: 1
 
 While I was planning to build my own blogging site, I was wondering what are the commonalities and differences between the two frameworks, Gatsby and Next.js. To solve this question, I looked at the official documents of the two frameworks to see principle of operation and their own features. This post is all about that research process. 
 
-I will try to convey important points in these two frameworks. I hope this post helps which framework to choose. For me, knowing how they work helps me a lot to make a right decision. 🤓
+In this blog post, I will convey important points in Gatsby and Nextjs and compare them so that you can make an informed decision about which platform is right for you. Stay tuned! 🤓
 
 ## 1. What is Gatsby and Next.js?
 
