@@ -70,12 +70,21 @@ const HeroText = () => {
           />
           <> , and </>
           <EmojiReplaceableText
-            text={'IT technology'}
+            text={'technology'}
             photo={RocketEmoji}
             photoAlt={'🚀'}
             showByDefault="emoji"
           />
-          <> . </>
+          <> . This is her research note about </>
+          <EmojiReplaceableText
+            text={'technology'}
+            photo={RocketEmoji}
+            photoAlt={'🚀'}
+            showByDefault="emoji"
+          />
+          <>. It contains the ineffable and unchanging truth that transcends all concepts and language.  
+          </>
+          <a href='/wiki'> Stay tuned 👉🏻 </a>
         </p>
       </main>
     </>

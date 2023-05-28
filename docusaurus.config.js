@@ -66,27 +66,32 @@ const config = {
         },
         items: [
           {
+            label: 'My Wiki',
             to: '/wiki/',
             type: 'docSidebar',
             sidebarId: 'docSidebar',
             position: 'left',
-            label: 'My Wiki',
           },
           /*
           {
+            label: 'blog',
             to: '/blog/', 
             position: 'left',
-            label: 'blog',
           },
           */
           {
+            label: 'About',
             to: '/about',
             position: 'left',
-            label: 'About',
           },
           {
-            href: 'https://github.com/serinryu',
             label: 'GitHub',
+            href: 'https://github.com/serinryu',
+            position: 'right',
+          },
+          {
+            label: 'Medium',
+            href: 'https://medium.com/@serin0404',
             position: 'right',
           },
         ],
