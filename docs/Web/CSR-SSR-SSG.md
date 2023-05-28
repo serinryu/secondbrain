@@ -44,6 +44,10 @@ Because they are pre-rendered and come directly from the server, they’ll load 
 - If you are making highly static content, you can use SSG.
 - If you are making highly dynamic web application, you can use either CSR or SSR. (depending on scenarios.)
 
+:::tip
+This video will help you a lot to understand the difference among them. [Check here](https://www.youtube.com/watch?v=mWytwmxLKmo)
+:::
+
 ### 2-1. Client-side Rendering (CSR)
 
 **In CSR, web pages are generated dynamically on the client-side using JavaScript.** When the user requests a page, the server returns a blank HTML page and then the JavaScript code running in the user’s browser requests the data from the server and updates the page dynamically.  Simply put, Using CSR allows you to render sites in the browser using JavaScript, which means that rather than having a different HTML page per route, you're able to build each route dynamically on the browser.
@@ -122,9 +126,19 @@ Building sites in this way has become known as the [JAMstack](https://jamstack.
 
 ### 2-4. JAMstack
 
-A JAMstack application that uses static site generation (SSG) often combines a headless CMS for content management and a CDN for content delivery. (SSG + CMS + CDN)
+A JAMstack application that uses static site generation (SSG) often combines a headless CMS for content management and a CDN for content delivery. (SSG + headless CMS + CDN)
 
-JAMstack applications are static, with APIs used for any backend functionality. A website is delivered statically, such as serving HTML from static hosting or CDN (content delivery network), but providing dynamic content and an interactive experience through JavaScript. 
+The Jamstack architecture is based on the three components that make up the “JAM” in its name — client-side JavaScript, reusable APIs, and Markups pre-rendered at build time. Instead of using traditional content management systems (CMSes) or website builders, Jamstack brings its three core components together to provide a holistic website development solution that is more robust and powerful than other conventional approaches. 
+
+JAMstack applications are static, with APIs used for any backend functionality. A website is delivered statically, such as serving HTML from static hosting or CDN (content delivery network), but providing dynamic content and an interactive experience through JavaScript. **With that siade, the main idea behind using Jamstack is shifting the workload from servers to clients!**
+
+- The “J” of Jamstack can be any form of JavaScript, from pure JavaScript to even front-end languages such as React.js. But the role that it plays in Jamstack is that it handles responses and requests from your front-end code on the client side. This, in turn, allows you to build fast, scalable applications with excellent performance and user experience to match.
+
+- Next up is the “A” of Jamstack, API, or an application programming interface. APIs are a set of rules that allow the software to communicate with one another. You can integrate other applications with your website through APIs to provide uniquely enriching digital experiences for your customers.
+
+- Lastly, the “M” in Jamstack refers to the HTML Markup, which is pre-rendered. This essentially means that the code is prebuilt and ready for consumption, but it’s up to JavaScript (or other APIs) if they want to access it or not. This is different from the traditional style of front-end coding, which is still commonly used in many web applications.
+
+The core components of Jamstack turn it into a formidable web development technology. To summarise, by implementing Jamstack architecture, you can expect benefits such as pre-rendering of pages, supercharging with JavaScript, seamless integration with other platforms, fast and secure performance, and smooth scalability.
 
 ![https://www.partech.nl/publication-image/%7B5B10137E-B906-4AC5-B266-F64BC6530701%7D](https://www.partech.nl/publication-image/%7B5B10137E-B906-4AC5-B266-F64BC6530701%7D)
 ![https://images.contentful.com/fo9twyrwpveg/7Gi0UfqwrdPCCENrCXIfHU/cfa689da2b9b7c2b6a5b3008135437bf/Jamstack_Workflow_Hero.png](https://images.contentful.com/fo9twyrwpveg/7Gi0UfqwrdPCCENrCXIfHU/cfa689da2b9b7c2b6a5b3008135437bf/Jamstack_Workflow_Hero.png)
@@ -144,3 +158,5 @@ Reference.
 [https://www.youtube.com/watch?v=mWytwmxLKmo](https://www.youtube.com/watch?v=mWytwmxLKmo)
 
 [What the Heck Is Web Rendering, and Why Should You Care?](https://www.locofy.ai/blog/what-the-heck-is-web-rendering)
+
+[https://webo.digital/blog/which-is-better-vercel-or-cloudflare/](https://webo.digital/blog/which-is-better-vercel-or-cloudflare/)
