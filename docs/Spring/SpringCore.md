@@ -168,11 +168,11 @@ To implement IoC, just register the object as a spring bean in the spring contai
 
 **How it works**
 
-1. Create the Spring container
-2. Configure the Beans in Spring container 
-3. Now, Spring container finds the object and connect the dependent relationship(inject the dependency).
+1. 📦 Create Spring Container
+2. 🫘 Create(Configure) Beans in Spring container 
+3. 💉 Inject the dependency
 
-### (1) Configure Beans by using @Bean
+### (1.a) 🫘 Configure Beans by using @Bean
 
 The class annotated with `@Configuration` used by Spring Containers as a source of bean definitions. Therefore, this Config file is like Spring Container. Also, `@Bean` means that the method is a Spring Bean to be managed by Spring Container.
 
@@ -232,7 +232,7 @@ public class HotelConfigTest {
 
 [Example Code - Chap03](https://github.com/serinryu/blog-example-code/tree/e7aabba90334c63d651994bc0983242fe09a95da/spring/core/src/main/java/com/spring/core/chap03)
 
-### (2) Or Configure Beans by using @Component
+### (1.b) 🫘 Or Configure Beans by using @Component
 
  This Config file is like Spring Container. But here, we use @ComponentScan instead of @Bean. If we configures every bean one by one with @Bean annotation, the Config file(class) would be too complicated. That’s where @ComponentScan comes in. 
 
@@ -254,7 +254,7 @@ import org.springframework.context.annotation.Configuration;
 }
 ```
 
-### (3) Now, inject the dependencies by using @Autowired
+### (2) 💉 Inject the dependencies by using @Autowired
 
 `@Autowired` annotations help the Spring container identify the dependencies and wire them appropriately. Also, Spring Framework ***could support*** these four methods that is generally used for DI. With `@Autowired`, you can inject the dependencies selecting one of the following methods.
 
@@ -279,7 +279,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Hotel {
 	
-		// field-injected DI
+	// field-injected DI
     @Autowired 
     private Restaurant restaurant;
     @Autowired
@@ -293,6 +293,10 @@ public class Hotel {
 ```
 
 [Example Code - Chap04](https://github.com/serinryu/blog-example-code/blob/e7aabba90334c63d651994bc0983242fe09a95da/spring/core/src/main/java/com/spring/core/chap04/Hotel.java)
+
+
+As a result, Spring injects Restaurant and Chef when Hotel is created. 
+
 
 - Option 2. Constructor-injected DI
 
@@ -318,3 +322,39 @@ public class Hotel {
 ```
 
 [Example Code - Chap05](https://github.com/serinryu/blog-example-code/blob/e7aabba90334c63d651994bc0983242fe09a95da/spring/core/src/main/java/com/spring/core/chap05/Hotel.java)
+
+
+- Option 3. Setter-injected DI
+  
+```java
+package com.spring.core.chap05;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Hotel {
+    private Restaurant restaurant;
+    private Chef chef;
+
+		// Setter-injected DI
+		@Autowired 
+		public void setRestuarant(Restaurant restaurant){
+        this.restaurant = restaurant;
+        }
+        @Autowired 
+		public void setChef(Chef chef){
+				this.chef = chef;
+		}
+}
+```
+
+:::caution
+The @Autowired annotation is a great way of making the need to inject a dependency in Spring explicit. Although it's useful, if more than one bean of the same type is available in the container, the framework will throw NoUniqueBeanDefinitionException.
+
+By using the @Qualifier annotation, we can eliminate the issue of which bean needs to be injected.
+
+Check out the picture below with [Example Code](https://github.com/serinryu/blog-example-code/blob/e7aabba90334c63d651994bc0983242fe09a95da/spring/core/src/main/java/com/spring/core/chap05/Hotel.java)
+:::
+![img/springcore_img.png](img/springcore_img.png)
