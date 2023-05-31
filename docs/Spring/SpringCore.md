@@ -12,6 +12,14 @@ The Spring Framework consists of features organized into about 20 modules. **Spr
 
 Among others modules, Spring Core module is the most important and fundamental module. Since it provides the ‘core’ and fundamental parts of the framework, including **IoC and Dependency Injection features, it is the basis for other modules.** So, it promotes object-oriented design and focuses on improving application flexibility and scalability. 
 
+
+:::tip
+**What is Spring Module?**
+
+The Spring Framework consists of features organized into about 20 modules. **Spring Modules are the building blocks of Spring Projects and Spring Framework.** They are what defined Spring Framework. These modules does not have to be used in full, but we can choose the modules that is needed in the application like Lego. 
+
+That’s why the Spring Framework is considered as a lightweight container. Also, it is easy to make large-scale applications, because the modules can be just selected whenever it’s needed. 
+:::
 ![https://docs.spring.io/spring-framework/docs/4.2.6.RELEASE/spring-framework-reference/html/images/spring-overview.png](https://docs.spring.io/spring-framework/docs/4.2.6.RELEASE/spring-framework-reference/html/images/spring-overview.png)
 
 As you can see above, the *[Core Container](https://docs.spring.io/spring-framework/docs/4.3.13.RELEASE/spring-framework-reference/html/beans.html#beans-introduction)* consists of the `spring-core`, `spring-beans`, `spring-context`, `spring-context-support`, and `spring-expression` (Spring Expression Language) modules.
