@@ -128,6 +128,12 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      algolia: {
+        appId: '1PMKUF6C9D',
+        apiKey: 'd2ef5fd1efa1eb6ea0c3c78f88dd5b20', // Public API key: it is safe to commit it
+        indexName: 'mysecondbrain',
+        contextualSearch: true,
+      },
     }),
 };
 
