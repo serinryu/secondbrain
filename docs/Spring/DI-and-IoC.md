@@ -115,11 +115,38 @@ A bean is an object that is created, configured, and managed by a Spring IoC con
 
 ## 4. How?
 
-### 4-1. How Spring Define the Beans
+You are free to use any of the standard Spring Framework techniques to define your beans and their injected dependencies. For simplicity, we often use this in following way.
+
+:::tip
+
+**How it works**
+
+1. 📦 Create Spring Container  
+2. 🫘 Define Beans in Spring Container  
+3. 💉 Inject dependency
+
+**-> Method 1 (1.a → 2)**
+
+1. 📦 Create Spring Container → `@Configuration`
+2. 🫘 Define Beans **manually** in Spring Container → `@Bean`  (It’s inside @Configuration class.)
+3. 💉 Inject dependency → `@Autowired`  
+
+**-> Method 2 (1.b → 2)**
+
+1. 📦 Create Spring Container → `@Configuration`
+2. 🤿 Spring Container will **automatically** scan the beans. → `@ComponentScan` (It’s inside @Configuration class.)
+3. 🫘 Define Beans → `@Component` (It’s used in each class)
+4. 💉 Inject dependency → `@Autowired`
+:::
+
+Let's go deep into it.
+
+
+### 4-1. 🫘 How Spring Define the Beans
 
 ### (1) Creating Bean Inside an XML Configuration File (beans.xml)
 
-One of the most popular ways to create a spring bean is to define a bean in an XML configuration file something like this. In this way, you can create beans in spring.
+The most traditional way to create a spring bean is to define a bean in an XML configuration file something like this. In this way, you can create beans in spring. However, nowadays, we use Spring Annotation to create beans more than this. 
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
@@ -175,7 +202,7 @@ public class ScanComponent{
 }
 ```
 
-### 4-2. How Spring Inject Dependency
+### 4-2. 💉 How Spring Inject Dependency
 
 Overall, beans are typically defined in the Spring configuration files or through annotations, specifying their scope, dependencies, and other configurations. Once the beans are created by one of three ways above, Spring can implement dependency Injection automatically with @Autowired.
 
@@ -204,7 +231,6 @@ public class ClubService{
 
 @Autowired is an annotation that automatically finds a Bean (which is ClubRepository type) in Spring Container. Of course, a ClubRepository type of Bean should be already in Spring Container, otherwise @Autowired couldn’t find it in the container.
 
-You are free to use any of the standard Spring Framework techniques to define your beans and their injected dependencies. For simplicity, we often find that using `@ComponentScan` (to find your beans) and using `@Autowired` (to do constructor injection) works well.
 
 ---
 

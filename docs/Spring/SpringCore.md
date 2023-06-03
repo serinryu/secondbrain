@@ -174,11 +174,29 @@ In the previous code, the developer created the object manually, but now let’s
 
 To implement IoC, just register the object as a spring bean in the spring container and find and use the spring bean in the spring container. Therefore, developers do not have to create objects with **new** operator, but simply 'register' the objects in the spring container and request the objects when it’s necessary.
 
+
+:::tip
+
 **How it works**
 
-1. 📦 Create Spring Container
-2. 🫘 Create(Configure) Beans in Spring container 
-3. 💉 Inject the dependency
+1. 📦 Create Spring Container  
+2. 🫘 Define Beans in Spring Container  
+3. 💉 Inject dependency
+
+**-> Method 1 (1.a → 2)**
+
+1. 📦 Create Spring Container → `@Configuration`
+2. 🫘 Define Beans **manually** in Spring Container → `@Bean`  (It’s inside @Configuration class.)
+3. 💉 Inject dependency → `@Autowired`  
+
+**-> Method 2 (1.b → 2)**
+
+1. 📦 Create Spring Container → `@Configuration`
+2. 🤿 Spring Container will **automatically** scan the beans. → `@ComponentScan` (It’s inside @Configuration class.)
+3. 🫘 Define Beans → `@Component` (It’s used in each class)
+4. 💉 Inject dependency → `@Autowired`
+:::
+
 
 ### (1.a) 🫘 Configure Beans by using @Bean
 

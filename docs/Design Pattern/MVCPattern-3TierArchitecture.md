@@ -8,6 +8,8 @@ The **Model-View-Controller (MVC)** is an architectural pattern that separates
 - View - displays the data and the user interface of your application.
 - Controller - handles the user input and communicates with the model and the view.
 
+[💡 More detail about MVC Pattern with Spring MVC](../Spring/SpringMVC#-mvc-pattern)
+
 ![https://www.interviewbit.com/blog/wp-content/uploads/2022/05/Working-of-MVC-1024x686.png](https://www.interviewbit.com/blog/wp-content/uploads/2022/05/Working-of-MVC-1024x686.png)
 
 ## 🤾‍♀️ 3-tier Architecture

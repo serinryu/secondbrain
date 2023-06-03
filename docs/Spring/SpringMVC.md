@@ -68,6 +68,8 @@ Spring Boot provides the `spring-boot-starter-web` library for developing web 
 
 ## Spring's MVC Pattern & Front Controller Pattern
 
+![https://gmlwjd9405.github.io/images/web/servlet-jsp-model2.png](https://gmlwjd9405.github.io/images/web/servlet-jsp-model2.png)
+
 - **Model** - A model contains the data of the application. A data can be a single object or a collection of objects.
 - **Controller** - A controller contains the business logic of an application. Here, the `@Controller` annotation is used to mark the class as the controller.
 - **View** - A view is represented by any of the  [various template engines](https://www.baeldung.com/spring-template-engines). Generally, JSP+JSTL is used to create a view page, and Spring also supports other view technologies such as Apache Velocity, Thymeleaf and FreeMarker.
