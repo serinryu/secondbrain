@@ -1,7 +1,3 @@
----
-sidebar_position: 2
----
-
 # Dependency Injection and Inversion of Control
 
 The primary or most important feature of the Spring framework is DI(Dependency Injection). However, it is ‘not’ specific to the Spring Framework or any other framework. 

@@ -1,6 +1,5 @@
 {
-  "label": "Network",
-  "position": 4,
+  "label": "Network", 
   "link": {
     "type": "generated-index"
   }

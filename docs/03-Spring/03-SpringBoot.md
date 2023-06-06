@@ -1,7 +1,4 @@
----
-sidebar_position: 3
----
-
+ 
 # Spring VS Spring Boot
 
 ## 1. What is Spring Boot?

@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # JVM
 
 Understanding JVM can help optimize the performance of Java applications.

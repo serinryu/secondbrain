@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # CSR, SSR, SSG
 
 ## 1. Static Website VS Dynamic Website

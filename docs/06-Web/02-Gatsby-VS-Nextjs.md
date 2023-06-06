@@ -1,8 +1,3 @@
----
-sidebar_position: 1
----
-
-
 # SSG - Gatsby VS Next.js
 
 
