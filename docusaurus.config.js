@@ -1,6 +1,3 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Serin Ryu',
@@ -125,8 +122,11 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Serin Ryu.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        /*
+        theme: require('prism-react-renderer/themes/github'),
+        darkTheme: require('prism-react-renderer/themes/dracula'),
+        */
+        defaultLanguage: 'java',
       },
       algolia: {
         appId: '1PMKUF6C9D',
