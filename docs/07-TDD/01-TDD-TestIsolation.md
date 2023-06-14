@@ -1,4 +1,4 @@
-# [TDD] Unit Tests, Test Isolation
+# Unit Tests & Test Isolation
 
 ## What is Test Driven Development (TDD)?
 
@@ -91,13 +91,10 @@ public class BlogRepositoryTest {
         blogRepository.dropBlogTable(); // drop table
     }
 ```
-```
 
 Repository (BlogRepositoy.java)
 
 ```java
-// src/main/java/com/example/blog/repository/BlogRepository.java
-
 package com.example.blog.repository;
 
 import ...
@@ -113,6 +110,8 @@ public interface BlogRepository {
 }
 ```
 
+---
+
 ### 2️⃣ Run tests within transactions with @Transactional
 
 In most test cases, using `@Transactional` is more efficient than the first method above(dealing with explicit setup and cleanup operations manually).
@@ -121,17 +120,17 @@ When Spring’s `@Transactional` annotation is used in test (which is called tes
 
 Annotating a test method with `@Transactional` causes the test to be run within a transaction that is, **by default, automatically rolled back after completion of the test.** Test methods that are not annotated with `@Transactional` (at the class or method level) are not run within a transaction.
 
-- By default, test transactions will be automatically *rolled back* after completion of the test; however, transactional commit and rollback behavior can be configured declaratively via the `@Commit` and `@Rollback` annotations at the class level and at the method level.
+- **By default**, test transactions will be automatically *rolled back* after completion of the test; however, transactional commit and rollback behavior can be configured declaratively via the `@Commit` and `@Rollback` annotations at the class level and at the method level.
 
-- Even if rollback is performed, pk increased by auto_increment will not be rolled back. Therefore, it should not be allowed to rely on auto_increment pk when doing any work. Check this [stackoverflow](https://stackoverflow.com/questions/449346/mysql-auto-increment-does-not-rollback)
+- Even if rollback is performed, **pk increased by auto_increment will not be rolled back**. Therefore, it should not be allowed to rely on auto_increment pk when doing any work. Check this [stackoverflow](https://stackoverflow.com/questions/449346/mysql-auto-increment-does-not-rollback)
 
 ![https://vladmihalcea.com/wp-content/uploads/2014/01/transaction-workflow1.gif](https://vladmihalcea.com/wp-content/uploads/2014/01/transaction-workflow1.gif)
 
 
-**Why is it more efficient than manually setup and cleanup?**
+**Why is 2️⃣ more efficient than 1️⃣ (manually setup and cleanup)?**
 
 1. **Cleaner test code.** : It eliminates the need to manually handle setup and cleanup.
-2. **Improved performance:** Creating the data and delete it for each test can be highly inefficient when it should create a large amount of data. The usage of @Transactional  is particularly beneficial when there are complex relationship mappings or when multiple tests need to interact with the same set of data.
+2. **Improved performance:** Creating the data and delete it for each test can be highly inefficient when it should create a large amount of data or when there are complex relationship mappings. In that situation, `@Transactional` is particularly beneficial.
 
 ```java
 package com.example.blog.repository;
@@ -168,12 +167,13 @@ By annotating the test class with **`@Transactional`**, the test case will be ex
 
 **👉 What is transactions?**
 
+> **The process of transaction**
+   1. Begin the transaction.
+   2. Execute a set of data manipulations and/or queries.
+   3. If no error occurs, then ***commit*** the transaction.
+   4. If an error occurs, then ***roll back*** the transaction.
+
 - In a database management system, a transaction is a single unit of logic or work, sometimes made up of multiple operations. It typically includes database operations such as **inserting, updating, or deleting records.**
-- **The process of transaction**
-    1. Begin the transaction.
-    2. Execute a set of data manipulations and/or queries.
-    3. If no error occurs, then ***commit*** the transaction.
-    4. If an error occurs, then ***roll back*** the transaction.
 - **A transaction is always completed by a COMMIT or ROLLBACK:**
     - When a transaction is successfully concluded with a COMMIT, all of the data changes are retained.
     - If a transaction is ended with a ROLLBACK or terminated in any other way, the database system reverses all the data changes made during the transaction.
