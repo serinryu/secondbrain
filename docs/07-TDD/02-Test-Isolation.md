@@ -1,29 +1,12 @@
-# Unit Tests & Test Isolation
+# Test Isolation
 
-## What is Test Driven Development (TDD)?
-
-TDD stands for Test-Driven Development. TDD is an approach to software development in which the **unit tests are written before the business logic**. In other words, developers write unit tests for the feature before implementing it. 
-
-The goal of TDD is to avoid duplication of code, and gradually build up a comprehensive suite of tests that verify the behavior of the code.
-
-- TDD vs Unit tests :
-    
-    TDD is a **software development approach with a specific work cycle, so it’s a broader concept than unit tests.** Unit tests can be used with or without the TDD approach.
-    
-![https://www.baeldung.com/wp-content/uploads/sites/4/2021/12/Blank-diagram-Page-1.svg](https://www.baeldung.com/wp-content/uploads/sites/4/2021/12/Blank-diagram-Page-1.svg)
-
-
-- **A TDD cycle consists of three stages**:
-    1. **Red – during this stage we write a test for functionality that is not yet implemented**. We need to run the test to ensure it’s failing. Otherwise, we’ll get a false positive which means the test is badly written. Most popular IDE’s displays test failures using red color. That is why the stage is called red.
-    2. **Green – during this stage we write enough code to just cover the test.** We should focus on covering the test, not on the code quality. We write a minimum amount of code to pass the test. IDE’s often signals passing tests with a green color. So, the stage is called green.
-    3. **Refactor – final stage, here we focus on improving the code quality.** Therefore, we should make all refactors needed to improve the code. While making changes, we can run the tests to avoid any regression.
-
-
-## Test Isolation : Provide a reliable and independent testing environment!
+## Test Isolation 
 
 **👉 Why Test Isolation?**
 
-**When test is using a external database**, it is necessary to have test isolation. Test isolation means that tests should be executed independently of each other, regardless of the order, and they should be deterministically performed.
+> To provide a reliable and independent testing environment **when using a external database!**
+
+When test is using a external database, it is necessary to have test isolation. Test isolation means that tests should be executed independently of each other, regardless of the order, and they should be deterministically performed.
 
 The fundamental reason why test isolation is needed is that the **data used in each test is shared**. Since the behavior of this data is uncertain and can change at any time, it can lead to writing non-deterministic and unreliable tests.
 
@@ -32,13 +15,16 @@ The fundamental reason why test isolation is needed is that the **data used in e
 
 **JUnit and Spring Boot provide tools that support test isolation** based on annotations such as @BeforeEach, @AfterEach, and @Transactional.
 
-1.  One method is to manually perform setup and cleanup tasks before / after each test using @BeforeEach and @AfterEach.
+1. One method is to manually perform setup and cleanup tasks before / after each test using @BeforeEach and @AfterEach.
 2. Another method is to execute the test code within a transaction using @Transactional.
 
-> Furthermore, although JUnit and Spring Boot support isolation, **many developers use the Mock framework to write tests.** It is a method of testing using the Mock framework, not the actual DB. In particular, if you use TDD, this method is effective, and if you test using the Mock framework, you can focus on the Service layer without worrying about test isolation because you don't even go near the actual database. (However, if the test should be under real environment, the actual DB must be used to meet the conditions, not Mock framework anymore.)
+:::tip
+When we use **Mocking**, we don't have to consider Test Isolation. 
 
+As you can see, JUnit and Spring Boot support Test Isolation with many annotations. However, when we use Mocking, we don't have to consider Test Isolation **because it doesn't use the actual DB.**  (Of course, there's some case that we should use the actual DB in test.)
+:::
 
-
+---
 ### 1️⃣ Manually perform setup and cleanup tasks
 
 We can isolate each test environment, to send requests to create the data using `@BeforeEach` and after the test, delete the data using `@AfterEach`, thereby bringing the database back to its original state.
@@ -215,13 +201,9 @@ According to [the documentation](https://docs.spring.io/spring-framework/docs/c
 - Method-level lifecycle methods — for example, methods annotated with JUnit Jupiter’s **@BeforeEach** or **@AfterEach** — are run within a test-managed transaction.
 - On the other hand, suite-level and class-level lifecycle methods — for example, methods annotated with JUnit Jupiter’s **@BeforeAll** or **@AfterAll** and methods annotated with TestNG’s **@BeforeSuite**, **@AfterSuite**, **@BeforeClass**, or **@AfterClass** — **are not run within a test-managed transaction**.
 
----
+--- 
 
-Reference
-
-[https://www.baeldung.com/cs/unit-testing-vs-tdd#:~:text=TDD is a broader concept,and avoiding bugs and regression](https://www.baeldung.com/cs/unit-testing-vs-tdd#:~:text=TDD%20is%20a%20broader%20concept,and%20avoiding%20bugs%20and%20regression).
-
-[https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/tx.html](https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/tx.html)
+Reference.
 
 [https://me-analyzingdata.tistory.com/m/entry/SpringTransactional과-JUnit-Test](https://me-analyzingdata.tistory.com/m/entry/SpringTransactional%EA%B3%BC-JUnit-Test)
 
