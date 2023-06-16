@@ -1,4 +1,4 @@
-# ✍🏻 [Second Brain](https://mysecondbrain.vercel.app/)
+# 🏛️ [Second Brain](https://mysecondbrain.vercel.app/)
 
 This space serves as **my research notes**, covering key concepts that form the foundation of various core technologies. 
 
