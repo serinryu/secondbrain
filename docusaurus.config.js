@@ -88,7 +88,7 @@ const config = {
           },
           {
             label: 'Medium',
-            href: 'https://medium.com/@serin0404',
+            href: 'https://medium.com/@serinryu',
             position: 'right',
           },
         ],
@@ -101,7 +101,7 @@ const config = {
             items: [
               {
                 label: 'Medium',
-                href: 'https://medium.com/@serin0404',
+                href: 'https://medium.com/@serinryu',
               },
               {
                 label: 'Twitter',
