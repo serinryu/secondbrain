@@ -19,9 +19,9 @@ The fundamental reason why test isolation is needed is that the **data used in e
 2. Another method is to execute the test code within a transaction using @Transactional.
 
 :::tip
-When we use **Mocking**, we don't have to consider Test Isolation. 
-
 As you can see, JUnit and Spring Boot support Test Isolation with many annotations. However, when we use Mocking, we don't have to consider Test Isolation **because it doesn't use the actual DB.**  (Of course, there's some case that we should use the actual DB in test.)
+
+✅ When we use **Mocking**, we don't have to consider Test Isolation anymore. 
 :::
 
 ---
