@@ -25,7 +25,15 @@ In the MVC (Model-View-Controller) pattern, dependencies exist between different
 - Aim to uncover issues that may arise due to the integration of different components or subsystems.
 - Require more setup time and may take longer to execute compared to unit tests.
 - Validate the system's behavior as a whole and help ensure its overall functionality and correctness.
-- The *@SpringBootTest* annotation is useful in Integration Tests because it helps to bootstrap the entire container.
+- The `@SpringBootTest` annotation is useful in Integration Tests because it helps to bootstrap the entire container.
 
 
 > Unit tests provide rapid feedback and isolate issues within specific units, while integration tests verify the system's behavior as a whole and help ensure the interoperability of different components. Both types of tests are valuable and should be used in combination to achieve comprehensive test coverage.
+
+
+## Functional Tests
+ 
+- It means testing a slice of functionality in the system (may interact with dependencies) to confirm that the code is doing the right things.
+- Functional tests are related to integration tests, however, they signify to the tests that check the entire application’s functionality with all the code running together, nearly a super integration test.
+
+![https://www.softwaretestinghelp.com/wp-content/qa/uploads/2016/12/image-result-for-unit-testing-vs-functional-testin.png](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2016/12/image-result-for-unit-testing-vs-functional-testin.png)
