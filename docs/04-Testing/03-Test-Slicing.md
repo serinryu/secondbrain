@@ -173,24 +173,51 @@ Here’s an example of using `MockMvc` with `WebMvcTest`.
 
 ```java
 @WebMvcTest(MyController.class)
-public class MyControllerTest {
+public class MemberControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private MyService myService; // Assuming MyService is a dependency of MyController
+    private MemberService memberService;
 
-    @Test
-    public void testEndpoint() throws Exception {
-        // Define the behavior of the mock service
-        when(myService.someMethod()).thenReturn("Mocked result");
+    @Autowired
+    private ObjectMapper objectMapper;
 
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/my-endpoint"));
-
-        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
-        // Add more assertions as needed
+    @BeforeEach
+    public void beforeEach() {
+        JacksonTester.initFields(this, objectMapper);
     }
-} 
+
+    @DisplayName("정상적인 회원 테스트")
+    @Test
+    public void create_normal_member() throws Exception {
+        // given
+        MemberDto memberDto = new MemberDto( ... );
+        Member savedMember = new Member(...);
+        Mockito.when(memberService.save(Mockito.any(MemberDto.class)))
+                .thenReturn(savedMember); // Define the behavior of the mock service
+
+        // when
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.post("/api/members")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON)
+                .content(objectMapper.writeValueAsString(memberDto)));
+
+        // then
+        result.andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("homo.efficio@gmail.com"));
+
+        // Additional assertions or inspections on the result if needed
+        // result.andExpect(...) or result.andDo(...) can be used here
+
+        // Verify that the save method was called with the expected arguments
+        Mockito.verify(memberService).save(Mockito.any(MemberDto.class));
+    }
+    ...
+    
+}
 ```
 
 - Spring Boot provides the `@WebMvcTest` annotation to fire up an application context that contains only the beans needed for testing a web controller.
@@ -220,16 +247,26 @@ public class MyServiceTest {
     //}
 
     @Test
-    public void testMyServiceMethod() {
-        // Define the behavior of the mock dependency
-        when(myRepository.someMethod()).thenReturn("Mocked result");
-
-        // Test the method of the service using the mock dependency
-        String result = myService.someMethod();
-
-        // Assert the result
-        // ...
-    } 
+    @DisplayName("새 Member 저장")
+    public void create_new_member() {
+        // given
+        MemberDto memberDto = new MemberDto(
+                null, "Serin", "serin@gmail.com", "CatLover"
+        );
+        
+        Mockito.when(memberRepository.findById(Mockito.any()))
+                .thenReturn(Optional.empty());
+        
+        Mockito.when(memberRepository.save(Mockito.argThat(member -> member.getUsername().equals("Serin"))))
+                .thenReturn(new Member(memberDto.getUsername(), memberDto.getEmail(), memberDto.getPassword()));
+    
+        // when
+        MemberDto dbMemberDto = memberService.save(memberDto);
+    
+        // then
+        Mockito.verify(memberRepository).save(Mockito.argThat(member -> member.getUsername().equals("Serin")));
+    }
+    ...
 }
 ```
 
@@ -248,28 +285,31 @@ You can use an **1) in-memory database** or **2) mock the database interactions.
 
 ```java
 @DataJpaTest
-public class UserRepositoryTest {
+class MemberRepositoryTest {
+
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
     @Test
-    public void testSaveAndRetrieveUser() {
-        // Create a user entity
-        User user = new User();
-        user.setUsername("john");
-        user.setEmail("john@example.com");
+    @DisplayName("새 Member 저장")
+    public void create_new_member() {
+        // given
+        Member member = generateMember();
+				/*
+				Member member = new Member("Serin", "serin@gmail.com", "CatLover"); 
+				*/
 
-        // Save the user entity
-        **userRepository.save(user);**
+        // when
+        Member dbMember = memberRepository.save(member);
 
-        // Retrieve the user from the repository
-        User retrievedUser = **userRepository.findByUsername("john");**
-
-        // Perform assertions
-        assertThat(retrievedUser).isNotNull();
-        assertThat(retrievedUser.getUsername()).isEqualTo("john");
-        assertThat(retrievedUser.getEmail()).isEqualTo("john@example.com");
+        // then
+        assertThat(dbMember.getUsername()).isEqualTo("Serin");
+        assertThat(dbMember.getEmail()).isEqualTo("serin@gmail.com");
+        assertThat(dbMember.getPassword()).isEqualTo("CatLover");
     }
+
+    ...
+
 }
 ```
 
