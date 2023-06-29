@@ -277,11 +277,13 @@ Of course, If you prefer not to use Mockito or want more control over the mock o
 
 ### 2-3. Repository Test
 
-The Repository layer typically does NOT depend on another layer directly. Therefore, you don’t have to try to avoid dependencies on different layers. But, **it should  care about external databases.**  
+The Repository layer typically does NOT depend on another layer directly. Therefore, **you don’t need to try to avoid dependencies on different layers.**
 
-### 1️⃣ Mocking (Not using the actual database)
+Instead, you have to consider DB here. Since the Repository layer is a layer that exchanges data with the database, it is better to proceed with an integrated test that connects with the DB and sends actual queries rather than writing it as a unit test.
 
-You can use an **1) in-memory database** or **2) mock the database interactions.** Here's an example of testing a repository using an in-memory H2 database
+### 1️⃣ Not using the actual database
+
+You can use an **1) in-memory database** or **2) mock the database interactions.** Here's an example of testing a repository using an in-memory H2 database.
 
 ```java
 @DataJpaTest
@@ -313,17 +315,18 @@ class MemberRepositoryTest {
 }
 ```
 
-- The **`@DataJpaTest`** annotation is used to set up an in-memory H2 database and configure the Spring Data JPA repository infrastructure **for testing.**
-- By using an in-memory database and the **`@DataJpaTest`** annotation, you can test the repository's data access operations in an isolated and controlled environment. The in-memory database ensures that the tests are executed against a fresh and separate database instance each time, without affecting the production database.
+- If you are using JPA, you can use **`@DataJpaTest`** annotation for Repository test. By default, it uses an embedded in-memory database. By using an in-memory database and the **`@DataJpaTest`** annotation, you can test the repository's data access operations in an isolated and controlled environment. The in-memory database ensures that the tests are executed against a fresh and separate database instance each time, without affecting the production database.
 - Alternatively, if you want to mock the database interactions and avoid using an in-memory database, you can use mocking frameworks like Mockito to mock the repository and define the desired behavior for the mocked methods. However, it's generally recommended to use an in-memory database for repository tests to ensure more comprehensive and realistic testing of the data access layer.
+  - However, if the test should be under real environment, do not use Mock framework. (use the actual database!)
 
-### 2️⃣ Use the actual database
+### 2️⃣ Using the actual database
 
 In some cases, you may want to perform tests that involve the actual database to ensure that your application interacts correctly with the database and to validate the behavior of the entire system. 
 
-By using **`@Transactional`**, you can isolate each test within a transaction and roll back the transaction at the end of the test, ensuring that any modifications made during the test do not persist in the database. This allows you to use the real database and verify the behavior of your application while still maintaining test isolation. 
-
+However, note that you have to consider TEST ISOLATION since now you are using the actual database. 
 👉 *Check out the previous article about TEST ISOLATION.* 
+
+- By using **`@Transactional`**, you can isolate each test within a transaction and roll back the transaction at the end of the test, ensuring that any modifications made during the test do not persist in the database. This allows you to use the real database and verify the behavior of your application while still maintaining test isolation. 
 
 > 1), 2) ⇒ Both approaches have their merits and it depends on the specific requirements and goals of your testing.
 

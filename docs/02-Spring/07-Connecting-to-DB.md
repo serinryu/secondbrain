@@ -421,7 +421,7 @@ public class UserServiceImpl implements UserService {
 
 ### 🌱 Spring Data JPA
 
-- Spring Data JDBC is a module within the [Spring Data](https://www.baeldung.com/spring-data) project that provides a simplified approach to working with relational databases using JDBC (Java Database Connectivity).
+- Spring Data JPA is a module within the [Spring Data](https://www.baeldung.com/spring-data) project that provides a simplified approach to working with relational databases using JPA.
 - It is built **as an abstraction layer over the JPA**. So, we have all the features of JPA plus the Spring ease of development.
 - The Advantage of Spring Data JPA
   - Reduced boilerplate code: Spring Data JPA reduces the amount of boilerplate code needed for data access. By using the repository abstraction provided by Spring Data JPA, **developers can use pre-defined methods for performing common database operations (such as CRUD operations) without having to write repetitive code.** The framework generates the necessary SQL queries based on method names and conventions, eliminating the need for manual query construction.
