@@ -108,6 +108,7 @@ In other words, **[Repository](https://docs.spring.io/spring-data/commons/docs/c
 ![https://suhwan.dev/images/jpa_hibernate_repository/overall_design.png](https://suhwan.dev/images/jpa_hibernate_repository/overall_design.png)
 
 - [Difference Between JPA and Spring Data JPA](https://www.baeldung.com/spring-data-jpa-vs-jpa)
+- [Spring Data JPA - Reference Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.details)
 
 ### `JpaRepository` interface
 
