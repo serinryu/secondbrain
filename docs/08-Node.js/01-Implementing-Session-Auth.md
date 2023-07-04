@@ -1,4 +1,4 @@
-# [Node.js] Implementing Session-based Authentication
+# Implementing Session-based Authentication (express-session)
 
 ## Let's Implement Session-based Authentication!
 
