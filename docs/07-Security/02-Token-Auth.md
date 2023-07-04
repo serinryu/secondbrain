@@ -209,7 +209,21 @@ If you decode that base64, you'll get JSON in 3 important parts: **header**, *
 
 1. **Header**
 
-The header *typically* consists of two parts: the type of the token, which is JWT, and the signing algorithm being used, such as HMAC SHA256 or RSA.
+The header *typically* consists of two parts: the type of the token, which is JWT, and the signing algorithm being used, such as H256 or RSA. When no specific algorithm is specified for signing a JWT, HS256 (HMAC with SHA-256) is the default symmetric key algorithm used. 
+
+- **Symmetric key algorithm : HS256**
+  
+  - In symmetric key algorithms, **the same private key is used for both the encryption (signing) and decryption (verification) processes.** 
+  - In the case of HS256, a secret key is used to sign the JWT. This secret key is known only to the issuer of the token. During the verification process, the same secret key is used to validate the signature and ensure the integrity of the token. As long as the secret key remains secure and known only to trusted parties, it allows for successful verification and prevents tampering with the token.
+    
+- **Asymmetric (public-key) algorithm : RS256, ES256, PS256**
+    
+  - JWT also supports other algorithms, including asymmetric (public-key) algorithms like RS256, ES256, and PS256, where **different keys are used for signing and verification**. The verification process requires the use of a public key, rather than the same key used for signing.
+    
+  - In an asymmetric key algorithm, a key pair is used consisting of **a private key and a corresponding public key.** When the token issuer signs the JWT with the private key, the resulting signature can only be verified using the corresponding public key. This allows any party with access to the public key to verify the authenticity and integrity of the JWT without needing access to the private key.
+    
+  - This feature makes asymmetric key algorithms useful in scenarios where the token issuer and the party verifying the tokens are different entities. It eliminates the need for the token verifier to have access to the private key, ensuring better security and key management. Using asymmetric key algorithms in JWT provides enhanced security and flexibility in distributed systems, multi-server environments, or situations where separate entities handle token generation and verification.
+
 
 For example:
 
@@ -218,12 +232,11 @@ For example:
   "alg": "HS256",
   "typ": "JWT"
 }
-
 ```
 
 Then, this JSON is **Base64Url** encoded to form the first part of the JWT.
 
-2. **Payload**
+1. **Payload**
 
 The second part of the token is the payload, which contains the claims. Claims are statements about an entity (typically, the user) and additional data. There are three types of claims: *registered*, *public*, and *private* claims.
 
@@ -235,7 +248,6 @@ An example payload could be:
   "name": "John Doe",
   "admin": true
 }
-
 ```
 
 The payload is then **Base64Url** encoded to form the second part of the JSON Web Token. Do note that for signed tokens this information, though protected against tampering, is readable by anyone. Do not put secret information in the payload or header elements of a JWT unless it is encrypted.
@@ -251,10 +263,18 @@ HMACSHA256(
   base64UrlEncode(header) + "." +
   base64UrlEncode(payload),
   secret)
-
 ```
 
 The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is.
+
+
+### **Use JWTs**
+
+JWTs can be used in various ways:
+
+- **Authentication**: When a user successfully logs in using their credentials, an **[ID token](https://auth0.com/docs/secure/tokens/id-tokens)** is returned.  
+- **Authorization**: Once a user is successfully logged in, an application may request to access routes, services, or resources (e.g., APIs) on behalf of that user. To do so, in every request, it must pass an *Access Token*, which may be in the form of a JWT. *Single Sign-on* (SSO) widely uses JWT because of the small overhead of the format, and its ability to easily be used across different domains.
+- **Information exchange**: JWTs are a good way of securely transmitting information between parties because they can be signed, which means you can be certain that the senders are who they say they are. Additionally, the structure of a JWT allows you to verify that the content hasn't been tampered with.
 
 
 ---
