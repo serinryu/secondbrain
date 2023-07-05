@@ -79,9 +79,7 @@ npm init -y
 npm install http express body-parser jsonwebtoken dotenv
 ```
 
-## 1. Application code
-
-- Folder Structure
+- **Folder Structure**
 
 ```jsx
 📦jwt-practice
@@ -99,7 +97,7 @@ ACCESS_TOKEN_SECRET=d7d34917fbd11fdd89357decfb506b5e563e418bf7b136d30436dfa0dddb
 REFRESH_TOKEN_SECRET=3a13ce20d9e44269e1a01f31e6cb67b6f200450ecc7cf09c3d0a199e512037422145d7727fa874e128bfbbc198b06e99ae1f6e24b57e8cd598102b61bffa8e69
 ```
 
-- Set up server using JWT with jsonwebtoken
+## 1. Application code 
 
 ```jsx
 // jwt.js
