@@ -1,4 +1,4 @@
-# REST/RESTful API
+# Building REST API
 
 ## 🎯 REST
 
