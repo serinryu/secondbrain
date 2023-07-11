@@ -1,4 +1,4 @@
-# SSG - Gatsby VS Next.js
+# SSG/SSR Frameworks (Gatsby VS Next.js)
 
 
 ## Introduction

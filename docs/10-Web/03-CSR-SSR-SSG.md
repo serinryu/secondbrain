@@ -1,4 +1,4 @@
-# CSR, SSR, SSG
+# Rendering Methods (CSR, SSR, SSG)
 
 ## 1. Static Website VS Dynamic Website
 
@@ -14,11 +14,11 @@ To sum up, a static website is pre-rendered(pre-built, rendered at build time), 
 
 Content on a static site is stored on a server or a CDN and published instantly to the server. Dynamic site content is stored on a database or CMS until it is ready to be used.
 
-1. Changes in content
+2. Changes in content
 
 Content on a static site never changes after the site has been published. On the other hand, content changes depending on user behavior with dynamic sites. If you want a visitor to see something different based on their location or specific input, it can be changed accordingly.
 
-1. Updating content
+3. Updating content
 
 Updating content on a static site is more challenging as it needs to be done manually, page by page. Changes made to a page on a dynamic site can automatically be made across any number of changes.
 

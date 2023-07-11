@@ -1,12 +1,23 @@
 # [API Security] Cross-Origin Resource Sharing (CORS)
 
+## TLDR;
+- CORS (Cross-Origin Resource Sharing) is a security mechanism implemented by web browsers to restrict cross-origin HTTP requests. It is a browser-based security feature that helps prevent malicious scripts on one website from accessing resources on another website.
+- When a web page makes a cross-origin request (i.e., a request to a different domain, protocol, or port), the browser enforces the same-origin policy, which blocks the request by default. CORS allows the server to specify who can access its resources and under what conditions.
+- To resolve CORS issues, the server needs to be configured correctly to include the appropriate CORS headers in its responses. This allows the browser to understand that the server is permitting cross-origin requests and enables the browser to proceed with the request.
+
+:::tip
+In summary, while CORS is a browser-based security mechanism, its resolution requires server-side configuration to handle and allow cross-origin requests. 
+
+(CORS 는 브라우저 문제, but 해결은 서버에서 해야함)
+:::
+
 ## Why does Same-Origin policy exist?
 
 **⇒ Because of cross-domain vulnerability! 🥵**
 
 Without features like CORS, websites are restricted to accessing resources from the same origin through what is known as **same-origin policy.**
 
-You, like many websites, may use `cookies` to keep track of authentication or session info. ⭐️**Those cookies are bounded to "a certain domain" when they are created**. **On every HTTP call to that domain, the browser will automatically attach the `cookies` that were created for that domain.** 👉 This makes cross-domain vulnerability...!
+You, like many websites, may use `cookies` to keep track of authentication or session info. **Those cookies are bounded to "a certain domain" when they are created**. **On every HTTP call to that domain, the browser will automatically attach the `cookies` that were created for that domain.** 👉 This makes cross-domain vulnerability...!
 
 > When you log into *https://examplebank.com*, a `cookie` is stored for *https://examplebank.com*. If that bank is a single-page React app, they may have created a REST API at *https://examplebank.com/api* for the SPA to communicate via AJAX.
 > 
@@ -129,7 +140,7 @@ Since the original CORS request has a preflight request before it, we call the o
     ```
     
 
-# More Headers that control CORS
+## More Headers that control CORS
 
 You already saw a few headers in the previous examples that are used for CORS such as `Access-Control-Allow-Origin` and `Access-Control-Allow-Methods`, but there are more headers for finer control.
 

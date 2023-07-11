@@ -1,14 +1,6 @@
 # Token-based Authentication 
 
-## Login Process
-
-1. **User Authentication**: The user provides their ID and password, which are then compared with the information stored in the server's database to verify if the user exists. If the information matches, the user is authenticated and allowed to log in.
-   
-2. **Maintaining user's authentication status** : 
-    
-    1️⃣ Session-based authentication: A session is created on the server, and a unique session ID is sent to the client. The client includes this session ID in subsequent requests, allowing the server to recognize the user without revalidating credentials for each request. The server can store session data in memory or a database.
-    
-    > 👉 2️⃣ ***Token-based authentication: Instead of using sessions, tokens are issued to authenticated users. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.***
+👉 2️⃣ Token-based authentication: Instead of using sessions, tokens are issued to authenticated users. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.
     
 |  | Session Authentication | Token Authentication |
 | --- | --- | --- |
@@ -16,11 +8,8 @@
 | What does the server do to authorize users' requests? | Search for the session ID from the cookie in the server's database. | Decode the user's token to see if it is valid. |
 | What keeps the authentication details? | Server | Client |
 
-:::tip
-Session-based authentication has been the default method for a long time. Nowadays, it’s very common for web applications to use the JSON Web Token (JWT Token) rather than sessions for authentication.
-:::
 
-## 2️⃣ How to Maintain Login Status 2 : Token-based authentication
+## How to Maintain User's Status 2️⃣ : Token-based authentication
 
 ![https://miro.medium.com/v2/resize:fit:720/format:webp/1*PDry-Wb8JRquwnikIbJOJQ.png](https://miro.medium.com/v2/resize:fit:720/format:webp/1*PDry-Wb8JRquwnikIbJOJQ.png)
 

@@ -2,17 +2,34 @@
 
 ## Login Process
 
- In a typical web application, the login process can be divided into two main steps: user authentication and maintaining login information.
+### 🌊 Flow
+
+1. The user accesses the login page through a client application (web browser, mobile app, etc.).
+2. The user enters identifiable credentials (e.g., username and password) on the login page.
+3. The client application sends the entered login information to the backend server.
+4. The backend server verifies the received login information. This may involve checking the username and password or using other authentication methods (e.g., social login, two-factor authentication, etc.).
+5. If the provided information is valid, the backend server authenticates the user and generates **a session OR authentication token.**
+6. The backend server returns the generated **session OR authentication token** to the client. Typically, the token is included in the HTTP response headers or body.
+7. When making subsequent requests, the client includes the **session OR authentication token** in the request sent to the backend server.
+8. The backend server validates the **session OR authentication token** upon receiving the request and checks if the user is authenticated.
+9. If the authentication is successful, the backend server generates an appropriate response for the request and returns it to the client. If the authentication fails, it may return an authentication error response or deny the request.
+
+
+### 1. Authenticate user -> 2. Maintain user's status
+
+In a typical web application, the login process can be divided into two main steps: user authentication and maintaining login information.
 
 1. **User Authentication**: The user provides their ID and password, which are then compared with the information stored in the server's database to verify if the user exists. If the information matches, the user is authenticated and allowed to log in.
     
+    :::caution
     BUT, WE NEED MORE.. The login process requires communication between the server and the client, and HTTP is commonly used as the underlying protocol. **HTTP has characteristics of being connectionless and stateless🚫**, which means that it doesn't maintain a continuous connection and doesn't store any state information. These characteristics present challenges in implementing the login process because without additional measures, the user would need to log in with every request, which is inconvenient and negatively impacts performance.
+    :::
     
 2. **Maintaining user's authentication status** : After successful authentication, both session-based and token-based authentication methods provide a way to maintain the user's authentication status without repeatedly validating credentials, thereby improving user experience and performance.
     
-    > 👉 1️⃣** *Session-based authentication: A session is created on the server, and a unique session ID is sent to the client. The client includes this session ID in subsequent requests, allowing the server to recognize the user without revalidating credentials for each request. The server can store session data in memory or a database.***
+    👉 1️⃣ **Session-based authentication:** A session is created on the server, and a unique session ID is sent to the client. The client includes this session ID in subsequent requests, allowing the server to recognize the user without revalidating credentials for each request. The server can store session data in memory or a database.
     
-    2️⃣ Token-based authentication: Instead of using sessions, tokens are issued to authenticated users. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.
+    2️⃣ **Token-based authentication:** Instead of using sessions, tokens are issued to authenticated users. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.
     
     |  | Session Authentication | Token Authentication |
     | --- | --- | --- |
@@ -25,22 +42,7 @@
 Session-based authentication has been the default method for a long time. Nowadays, it’s very common for web applications to use the JSON Web Token (JWT Token) rather than sessions for authentication.
 :::
 
-
-### 🌊 Flow
-
-1. The user accesses the login page through a client application (web browser, mobile app, etc.).
-2. The user enters identifiable credentials (e.g., username and password) on the login page.
-3. The client application sends the entered login information to the backend server.
-4. The backend server verifies the received login information. This may involve checking the username and password or using other authentication methods (e.g., social login, two-factor authentication, etc.).
-5. If the provided information is valid, the backend server authenticates the user and generates a session or authentication token.
-6. The backend server returns the generated **session OR authentication token** to the client. Typically, the token is included in the HTTP response headers or body.
-7. When making subsequent requests, the client includes the **session OR authentication token** in the request sent to the backend server.
-8. The backend server validates the **session OR authentication token** upon receiving the request and checks if the user is authenticated.
-9. If the authentication is successful, the backend server generates an appropriate response for the request and returns it to the client. If the authentication fails, it may return an authentication error response or deny the request.
-
-
-
-## 1️⃣ How to Maintain Login Status 1 : Session-based authentication
+## How to Maintain User's Status 1️⃣ : Session-based authentication
 
 ![https://miro.medium.com/v2/resize:fit:720/format:webp/1*Hg1gUTXN5E3Nrku0jWCRow.png](https://miro.medium.com/v2/resize:fit:720/format:webp/1*Hg1gUTXN5E3Nrku0jWCRow.png)
 
@@ -84,6 +86,10 @@ There are three storage options for session data (memory, disk, and database)
 3. Database(DB) Session Store:
     - Disk-Based Database: This refers to traditional disk-based databases such as **Oracle, MySQL, MS-SQL**, etc., where data is stored and managed on disk. These databases provide persistent storage and can handle large amounts of data efficiently.
     - In-Memory Database: In-memory databases store and manage data entirely in memory, without disk access. Examples of in-memory databases include **Redis, H2, memcached,** etc. In-memory databases offer extremely fast data access since all operations are performed in memory, avoiding disk I/O. They are particularly useful when speed and low latency are crucial.
+
+:::tip
+[Check how to implement them in Node.js Project!](http://localhost:3000/wiki/Node.js/Implementing-Session-Auth)
+:::
 
 ### 🫀 Best Practices for Session Authentication
 
