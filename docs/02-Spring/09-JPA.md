@@ -1,6 +1,6 @@
 # JPA & Spring Data JPA
 
-## 🪴 What is JPA?
+## 🪴 What is JPA(Java Persistence API)?
 
 **The Java Persistence API (JPA) is a specification that defines how to persist data in Java applications.** JPA follows Object-Relational Mapping (ORM) which is the process of converting Java objects to database tables. In other words, this allows us to interact with a relational database without any SQL. 
 
@@ -19,7 +19,7 @@ The main advantage of JPA over JDBC is that, in JPA, **data is represented by ob
 - JPA allows us to save and load Java objects and graphs without any DML language at all.
 - When we need to perform queries JPQL, it allows us to express the queries in terms of Java entities rather than the (native) SQL table and columns.
 
-## 🪴 Architecture of Java Persistence API (JPA)
+## 🪴 Architecture of JPA
 
 The Java Persistence API (JPA) is a specification that defines a set of standard interfaces and annotations for object-relational mapping (ORM) in Java. JPA provides a high-level, object-oriented approach to interact with relational databases using Java objects.
 
@@ -49,7 +49,7 @@ public class Student {
 }
 ```
 
-### 🔁 4 Lifecycle States of Entity object
+### (+) 4 Lifecycle States of Entity object 🔁
 
 All entity operations are based on JPA’s lifecycle model. It consists of 4 states : New, Managed, Removed and Detached. It defines how your persistence provider handles the entity object.
 
@@ -61,6 +61,10 @@ All entity operations are based on JPA’s lifecycle model. It consists of 4 sta
 - **Removed** : Entities in the state *removed* are scheduled for removal. The persistence provider will generate and execute the required SQL DELETE statement during the next flush operation.
 
 ### 2. EntityManager
+
+:::tip
+`JpaRepository` ,which is Spring Data JPA interface, is relying on EntityManager internally. Therefore, if you use `JpaRepository`, you don’t need to manage EntityManager manually 🤩
+:::
 
 → [javax.persistence.EntityManager](https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html) (Interface)
 

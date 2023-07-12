@@ -419,7 +419,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-### 🌱 Spring Data JPA
+## 🌱 Spring Data JPA
 
 - Spring Data JPA is a module within the [Spring Data](https://www.baeldung.com/spring-data) project that provides a simplified approach to working with relational databases using JPA.
 - It is built **as an abstraction layer over the JPA**. So, we have all the features of JPA plus the Spring ease of development.
@@ -442,46 +442,13 @@ public class UserServiceImpl implements UserService {
 
 🎯 **Example**
 
-- Configuration file
-
-```java
-@Configuration
-@EnableJpaRepositories("com.acme.repositories")
-class AppConfig {
-
-  @Bean
-  public DataSource dataSource() {
-    return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
-  }
-
-  @Bean
-  public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
-    return new JpaTransactionManager(emf);
-  }
-
-  @Bean
-  public JpaVendorAdapter jpaVendorAdapter() {
-    HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-    jpaVendorAdapter.setDatabase(Database.H2);
-    jpaVendorAdapter.setGenerateDdl(true);
-    return jpaVendorAdapter;
-  }
-
-  @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-    LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
-    lemfb.setDataSource(dataSource());
-    lemfb.setJpaVendorAdapter(jpaVendorAdapter());
-    lemfb.setPackagesToScan("com.acme");
-    return lemfb;
-  }
-}
-```
+**JpaRepository**, which is the most famous Spring Data JPA interface, is relying on EntityManager internally. Therefore, if you use JpaRepository, **you don't have to manage EntityManager manually **🤩
 
 - Repository interface
 
 ```java
-public interface PersonRepository extends CrudRepository<Person, Long> {
+@Repository
+public interface PersonRepository extends JpaRepository<Person, Long> {
 
   List<Person> findByLastname(String lastname);
 
