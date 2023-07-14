@@ -2,7 +2,9 @@
 
 ## Login Process
 
-### 🌊 Flow
+Login is the typical process that need Authentication to maintain user's status (whether the user is logged in or not.)
+
+#### 🌊 Flow
 
 1. The user accesses the login page through a client application (web browser, mobile app, etc.).
 2. The user enters identifiable credentials (e.g., username and password) on the login page.
@@ -15,34 +17,57 @@
 9. If the authentication is successful, the backend server generates an appropriate response for the request and returns it to the client. If the authentication fails, it may return an authentication error response or deny the request.
 
 
-### 1. Authenticate user -> 2. Maintain user's status
+### 1. Initial Request -> 2. Maintain user's status
 
-In a typical web application, the login process can be divided into two main steps: user authentication and maintaining login information.
-
-1. **User Authentication**: The user provides their ID and password, which are then compared with the information stored in the server's database to verify if the user exists. If the information matches, the user is authenticated and allowed to log in.
+1. **Initial Request**: The user provides their ID and password, which are then compared with the information stored in the server's database to verify if the user exists. If the information matches, the user is authenticated and allowed to log in.
     
     :::caution
-    BUT, WE NEED MORE.. The login process requires communication between the server and the client, and HTTP is commonly used as the underlying protocol. **HTTP has characteristics of being connectionless and stateless🚫**, which means that it doesn't maintain a continuous connection and doesn't store any state information. These characteristics present challenges in implementing the login process because without additional measures, the user would need to log in with every request, which is inconvenient and negatively impacts performance.
+    BUT, It's not enough.. WE NEED MORE.. 
+    
+    The login process requires communication between the server and the client, and HTTP is commonly used as the underlying protocol. **HTTP has characteristics of being connectionless and stateless🚫**, which means that it doesn't maintain a continuous connection and doesn't store any state information. These characteristics present challenges in implementing the login process because without additional measures, the user would need to log in with every request, which is inconvenient and negatively impacts performance.
     :::
     
 2. **Maintaining user's authentication status** : After successful authentication, both session-based and token-based authentication methods provide a way to maintain the user's authentication status without repeatedly validating credentials, thereby improving user experience and performance.
-    
-    👉 1️⃣ **Session-based authentication:** A session is created on the server, and a unique session ID is sent to the client. The client includes this session ID in subsequent requests, allowing the server to recognize the user without revalidating credentials for each request. The server can store session data in memory or a database.
-    
-    2️⃣ **Token-based authentication:** Instead of using sessions, tokens are issued to authenticated users. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.
-    
-    |  | Session Authentication | Token Authentication |
-    | --- | --- | --- |
-    | Suitable for | Websites in the same root domain (e.g. Server-side rendered applications) | Mobile apps or single-page web applications. |
-    | What does the server do to authorize users' requests? | Search for the session ID from the cookie in the server's database. | Decode the user's token to see if it is valid. |
-    | What keeps the authentication details? | Server | Client |
+
+
+
+## How to maintain user's status : **3 ways for Authentication**
+
+1. **Basic authentication** 
+  - A user needs to send the username and password for every request.
+  - The simplest way for authentication password and username are sent in header at every request so it does not require session or cookies. However, username and password should be sent in every request so it can be exposed even if in secure connection. 
+  - Basic authentication sends the username and password across the network in a form that can trivially be decoded. In effect, the secret password is sent in the clear, for anyone to read and capture. 👉 No secure 🚫
+   
+    ```
+    Authorization: Basic <base64-encoded-credentials>
+    ```
+
+2. **Session authentication** 
+  - A user sends username and password at initial request. 
+  - Then session is created on the server, and a unique session ID is sent to the client. The client includes this session ID in subsequent requests, allowing the server to recognize the user without revalidating credentials for each request. The server can store session data in memory or a database.
+
+3. **Token authentication** 
+  - A user send username and password at initial request. Then from server response we get the token and gonna use that for requests.
+  - Then token is created on the server, instead of session. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.
+
+    ```
+    Authorization: Bearer <token-value>
+    ```   
+ 
+
+|  | Session Authentication | Token Authentication |
+| --- | --- | --- |
+| Suitable for | Websites in the same root domain (e.g. Server-side rendered applications) | Mobile apps or single-page web applications. |
+| What does the server do to authorize users' requests? | Search for the session ID from the cookie in the server's database. | Decode the user's token to see if it is valid. |
+| What keeps the authentication details? | Server | Client |
+
 
 
 :::tip
-Session-based authentication has been the default method for a long time. Nowadays, it’s very common for web applications to use the JSON Web Token (JWT Token) rather than sessions for authentication.
+- Session-based authentication has been the default method for a long time. Nowadays, it’s very common for web applications to use the JSON Web Token (JWT Token) rather than sessions for authentication.
 :::
 
-## How to Maintain User's Status 1️⃣ : Session-based authentication
+## 1️⃣ Session-based Authentication
 
 ![https://miro.medium.com/v2/resize:fit:720/format:webp/1*Hg1gUTXN5E3Nrku0jWCRow.png](https://miro.medium.com/v2/resize:fit:720/format:webp/1*Hg1gUTXN5E3Nrku0jWCRow.png)
 
@@ -69,27 +94,36 @@ Session-based authentication has been the default method for a long time. Nowada
     
 5. If you log out of an application, the session ID is destroyed on both the client and server sides.
 
-### 🍪 `Sessions` use `cookies` to pass sessionID!
 
-- Cookies are stored on the client's web browser, while sessions are stored on the server.
-- Cookies are used to store information on the client side and are sent with each request to the server.
-- Sessions, on the other hand, are managed by the server and are identified using a session ID typically stored in a cookie. The server uses the session ID to identify the corresponding session and handle the client's requests while maintaining state.
+### 🫙 How to Store Session 
 
-⇒ Sessions use cookies to store and pass the session ID, enabling the server to authenticate the client and maintain the session's state. Therefore, cookies and sessions complement each other rather than being in opposition. 
-
-### 🫙 Storage for Session data
+> **Make sure that Session should be stored on Server side!**
 
 There are three storage options for session data (memory, disk, and database) 
 
-1. Memory Session Store: This option involves storing session data directly in **memory**. It offers fast response times since accessing data from memory is quicker than disk or database access. However, storing a large amount of session data in memory can be resource-intensive. It's important to control the amount of data loaded into memory or adjust the session expiration time to manage the load on the server.
-2. File Session Store: With this option, session data is stored in **files on disk**. It provides faster access compared to a database, but it may not be as fast as memory-based storage. One advantage of file-based storage is that it offers more storage capacity on disk compared to memory. Typically, a "sessions" folder is created in the same directory, and session information is written to files within that folder.
-3. Database(DB) Session Store:
+1. **Memory Session Store**
+   - This option involves storing session data directly in **memory**. It offers fast response times since accessing data from memory is quicker than disk or database access. However, storing a large amount of session data in memory can be resource-intensive. It's important to control the amount of data loaded into memory or adjust the session expiration time to manage the load on the server.
+2. **File Session Store**
+   - With this option, session data is stored in **files on disk**. It provides faster access compared to a database, but it may not be as fast as memory-based storage. One advantage of file-based storage is that it offers more storage capacity on disk compared to memory. Typically, a "sessions" folder is created in the same directory, and session information is written to files within that folder.
+3. **Database(DB) Session Store**
     - Disk-Based Database: This refers to traditional disk-based databases such as **Oracle, MySQL, MS-SQL**, etc., where data is stored and managed on disk. These databases provide persistent storage and can handle large amounts of data efficiently.
     - In-Memory Database: In-memory databases store and manage data entirely in memory, without disk access. Examples of in-memory databases include **Redis, H2, memcached,** etc. In-memory databases offer extremely fast data access since all operations are performed in memory, avoiding disk I/O. They are particularly useful when speed and low latency are crucial.
 
 :::tip
 [Check how to implement them in Node.js Project!](http://localhost:3000/wiki/Node.js/Implementing-Session-Auth)
 :::
+
+
+### 🤽‍♀️ How to pass sessionID from Client to Server
+
+-> 🍪 **Answer : use `cookies` to pass sessionID!** 🍪
+
+- Cookies are stored on the client's web browser, while sessions are stored on the server.
+- Cookies are used to store information on the client side and are sent with each request to the server.
+- Sessions, on the other hand, are managed by the server and are identified using a session ID typically stored in a cookie. The server uses the session ID to identify the corresponding session and handle the client's requests while maintaining state.
+
+⇒ Sessions use cookies to store and pass the session ID, enabling the server to authenticate the client and maintain the session's state. Therefore, cookies and sessions complement each other rather than being in opposition.
+
 
 ### 🫀 Best Practices for Session Authentication
 

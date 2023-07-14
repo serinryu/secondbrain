@@ -1,6 +1,6 @@
 # Token-based Authentication 
 
-👉 2️⃣ Token-based authentication: Instead of using sessions, tokens are issued to authenticated users. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.
+In Token-based authentication, instead of using sessions, tokens are issued to authenticated users. These tokens are typically in the form of JSON Web Tokens (JWT) and are sent to the client upon successful authentication. The client includes the token in subsequent requests as a means of authentication. The server can verify the token's authenticity and extract user information from it, eliminating the need for database lookups.
     
 |  | Session Authentication | Token Authentication |
 | --- | --- | --- |
@@ -9,7 +9,7 @@
 | What keeps the authentication details? | Server | Client |
 
 
-## How to Maintain User's Status 2️⃣ : Token-based authentication
+## 2️⃣ Token-based authentication
 
 ![https://miro.medium.com/v2/resize:fit:720/format:webp/1*PDry-Wb8JRquwnikIbJOJQ.png](https://miro.medium.com/v2/resize:fit:720/format:webp/1*PDry-Wb8JRquwnikIbJOJQ.png)
 
@@ -120,19 +120,70 @@ Let’s build APIs for our web application that implements token-based authentic
 
 ![https://hasura.io/blog/content/images/2019/08/Screen-Shot-2019-08-29-at-12.54.53.png](https://hasura.io/blog/content/images/2019/08/Screen-Shot-2019-08-29-at-12.54.53.png)
 
-### 🫙 Token Storage on Client Side
+### 🫙 How to Store Token 
 
-**So we’ve got the token, now where do we store this token?**
+> **Make sure that Token should be stored on Client side!**
 
-There are the different storage options for storing tokens on the client-side: **Local Storage, Session Storage, and Cookies.** When choosing a storage option for tokens, consider the **trade-offs between convenience, security.** 
+**So we’ve got the token from server (usually in the response body or as a response header), now where do we store this token?**
+
+There are two ways to store tokens on client side : **storing tokens in web storage (localStorage/sessionStorage) or storing tokens in cookies.** 
+When choosing a storage option for tokens, consider the *trade-offs between convenience and security.*
+
+1. **`localStorage`**
+- Convenience: Easy to use and provides persistent storage across browser sessions.
+- Security Trade-off: Vulnerable to XSS attacks since JavaScript can access its contents. Tokens stored in localStorage can be easily compromised if an XSS attack occurs.
+
+> Local Storage is a web storage mechanism available in web browsers. It provides a simple key-value store that persists even when the browser is closed and reopened. Storing tokens in Local Storage is *convenient* because they are easily accessible and can be accessed by JavaScript code running in the browser. 
+> However, there are security considerations to keep in mind. Local Storage is vulnerable to cross-site scripting (XSS) attacks, where malicious scripts can access and steal the tokens. Therefore, it's important to implement proper security measures, such as ensuring the tokens are encrypted and taking precautions against XSS vulnerabilities.
+
+
+2. **`sessionStorage`** 
+- Convenience: Similar to localStorage, it's easy to use and provides storage for the duration of the browser session.
+- Security Trade-off: Like localStorage, it's vulnerable to XSS attacks since JavaScript can access its contents. Tokens stored in sessionStorage can be compromised if an XSS attack occurs.
+
+> Session Storage is similar to Local Storage but has a different scope. While Local Storage persists even after the browser is closed, *Session Storage is limited to the current browsing session*. When the user closes the browser or the tab, the Session Storage is cleared. Storing tokens in Session Storage can provide additional security benefits compared to Local Storage since the tokens are automatically cleared when the session ends. However, it also means that users need to log in again after closing the browser.
+
+3. **`Cookies`** 
+- Convenience: Cookies are **automatically** sent with each HTTP request, making them convenient for token transmission.
+- Security Trade-off: Cookies can be vulnerable to CSRF attacks. However, by implementing proper security measures like CSRF tokens or same-site cookie attributes, CSRF risks can be mitigated.
+
+> Cookies are small pieces of data stored in the user's browser. They are typically used for maintaining session information. Tokens can be stored in cookies as well. When using cookies, you have control over attributes like expiration time, secure flag, and HTTP-only flag. **The secure flag ensures that the cookie is only transmitted over HTTPS,** providing protection against interception. The HTTP-only flag prevents client-side scripts from accessing the cookie, which helps protect against cross-site scripting (XSS) attacks. 
+> However, cookies also have some limitations, such as size limitations and the fact that they are included in every request to the server, which can slightly increase overhead.
+
 
 :::tip
+Storing tokens in web storage is vulnerable to XSS attacks, while storing them in cookies is vulnerable to CSRF attacks.  
+
 💡 Be careful for [CSRF](https://owasp.org/www-community/attacks/csrf) & [XSS](https://owasp.org/www-community/attacks/xss/) attacks❗️
 :::
 
-1. **Local Storage :** Local Storage is a web storage mechanism available in web browsers. It provides a simple key-value store that persists even when the browser is closed and reopened. Storing tokens in Local Storage is convenient because they are easily accessible and can be accessed by JavaScript code running in the browser. However, there are security considerations to keep in mind. Local Storage is vulnerable to cross-site scripting (XSS) attacks, where malicious scripts can access and steal the tokens. Therefore, it's important to implement proper security measures, such as ensuring the tokens are encrypted and taking precautions against XSS vulnerabilities.
-2. **Session Storage** : Session Storage is similar to Local Storage but has a different scope. While Local Storage persists even after the browser is closed, Session Storage is limited to the current browsing session. When the user closes the browser or the tab, the Session Storage is cleared. Storing tokens in Session Storage can provide additional security benefits compared to Local Storage since the tokens are automatically cleared when the session ends. However, it also means that users need to log in again after closing the browser.
-3. **Cookies** : Cookies are small pieces of data stored in the user's browser. They are typically used for maintaining session information. Tokens can be stored in cookies as well. When using cookies, you have control over attributes like expiration time, secure flag, and HTTP-only flag. **The secure flag ensures that the cookie is only transmitted over HTTPS,** providing protection against interception. The HTTP-only flag prevents client-side scripts from accessing the cookie, which helps protect against cross-site scripting (XSS) attacks. However, cookies also have some limitations, such as size limitations and the fact that they are included in every request to the server, which can slightly increase overhead.
+
+### 🤽‍♀️ How to Pass Token from Client to Server 
+
+1. **HTTP header** (→ You should add token manually)
+
+When token is stored in web storage (**`localStorage`** or **`sessionStorage`**), you include the token in the header of each HTTP request sent from the client to the server. Typically, it is included in the Authorization header as a bearer token. This method requires you to **manually** add the token to the header with each request.
+
+```
+GET /api/endpoint HTTP/1.1
+Host: example.com
+Authorization: Bearer <token-value>
+```
+
+
+2. **Cookies** (→ You don't have to add token manually. Browser automatically attaches cookie to request!)
+
+When token is stored in an cookie on the client-side, the browser automatically attaches the cookie to subsequent requests to the same domain. In other words, cookies are **automatically** sent with each HTTP request, making them convenient for token transmission. Therefore, you don't need to include it explicitly in the header.
+
+By enabling the **`httpOnly`** flag when setting the cookie during server response, the cookie is only attached during network communications. In other words, it ensures that cookie is only accessible over HTTP and not by JavaScript. Consequently, JavaScript cannot access the token value within the browser, which helps mitigate XSS attacks.
+
+However, it’s worthy noting that **cookies are limited to a specific domain**. To address this, you can implement an API that retrieves a new token as a string using the current token stored in the cookie whenever a token is needed.
+
+```
+GET /api/endpoint HTTP/1.1
+Host: example.com
+Cookie: token=<token-value>
+```
 
 
 ### 👍 Advantages of Token Authentication
