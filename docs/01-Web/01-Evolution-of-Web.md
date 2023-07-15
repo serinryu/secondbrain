@@ -1,4 +1,4 @@
-# 📒 Evolution of Web System
+# Evolution of Web System
 
 ## 1. Early Web Systems
 
