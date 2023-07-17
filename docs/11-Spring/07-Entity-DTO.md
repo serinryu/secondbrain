@@ -198,66 +198,24 @@ The decision of where to perform the mapping from Entity to DTO can vary dependi
 
   - Why? The Service Layer is responsible for handling the business logic and coordinating different components. By performing the mapping in the Service Layer, you keep the responsibility of data transformation separate from the Controller Layer, which focuses on handling HTTP requests and responses.
 
-> **Flow : DB → Repository → Service → Controller → USER!!**
+In fact, no matter which layer of conversion is made, there are pros and cons of each layer, and there is a trade-off depending on the choice. Therefore, I think we can choose according to the situation according to the size of the project.
 
-Here's an example illustrating the mapping of an Entity to a DTO in the **Service Layer** using the MapStruct library.
-
-PersonEntity.java:
-
-```java
-public class PersonEntity {
-    private Long id;
-    private String firstName;
-    private String lastName;
-
-    // Constructors, getters, and setters
-}
-```
-
-PersonDTO.java:
-
-```java
-public class PersonDTO {
-    private Long id;
-    private String fullName;
-
-    // Constructors, getters, and setters
-}
-```
-
-PersonService.java:
-
-```java
+```jsx
 @Service
-public class PersonService {
-    private final PersonRepository personRepository;
+public class BlogServiceImpl implements BlogService {
+    BlogRepository blogRepository; 
 
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
-
-    public PersonDTO getPersonById(Long id) {
-        PersonEntity personEntity = personRepository.findById(id);
-        if (personEntity == null) {
-            return null;
-        }
-        return mapToDTO(personEntity);
-    }
-
-    private PersonDTO mapToDTO(PersonEntity personEntity) {
-        PersonDTO personDTO = new PersonDTO();
-        personDTO.setId(personEntity.getId());
-        personDTO.setFullName(personEntity.getFirstName() + " " + personEntity.getLastName());
-        return personDTO;
+		@Override
+    @Transactional
+    public void save(BlogCreateRequestDTO blogCreateRequestDTO) { // DTO 에 의존
+        Blog blog = blogCreateRequestDTO.toEntity(); // DTO to Entity
+        blogRepository.save(blog);
+				....
     }
 }
 ```
 
-In this example, we have a **`PersonEntity`** representing a person with **`id`**, **`firstName`**, and **`lastName`** properties. The **`PersonDTO`** has an **`id`** field and a **`fullName`** field.
 
-The **`PersonService`** class is responsible for retrieving a person by their ID. It uses the **`PersonRepository`** (which can be a custom data access object or any other mechanism you use for data retrieval) to fetch the **`PersonEntity`** from the data source. Then, it manually maps the **`PersonEntity`** to the **`PersonDTO`** using the **`mapToDTO()`** private method.
-
-The **`mapToDTO()`** method performs the manual mapping by creating a new **`PersonDTO`** object, setting the corresponding properties from the **`PersonEntity`**, and returning the resulting DTO.
 
 ## Question 2🤔. Isn’t it over-specification to use Builder pattern in DTO?
 
