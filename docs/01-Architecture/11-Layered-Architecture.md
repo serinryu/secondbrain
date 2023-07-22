@@ -32,7 +32,7 @@ In order to avoid issues like these, the `implementation layer` uses the `dat
 3. **The Implement Layer contains classes with thorough implementation logic**, as a tool to accomplish the business logic shown in the preceding example, Because it contains the most classes and is in charge of implementation logic, this core layer is highly reusable.
 4. **Data Access Layer is layer that offers tools for intricate implementation logic to access numerous resources.** Its feature separates technological dependencies and gives implementation logic a clear interface. (They are often given as distinct modules to optimize this.)
 
-## 🚩 How to Control and Isolate the Layers
+## 🚩 How to Control and Isolate the Layers : **Follow proper direction of reference between layers!**
 
 Control is necessary to create sustainable software. This is because the layers must be controlled through appropriate constraints to interact organically between layers.
 
