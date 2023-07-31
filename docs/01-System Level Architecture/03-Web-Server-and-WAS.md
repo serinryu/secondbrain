@@ -12,10 +12,18 @@
 
 ## Why Web Server and WAS?
 
+When a user sends a request to access a web application, the request first reaches the web server. The web server's primary task is to handle various types of requests, including static resource requests (like HTML, CSS, and image files), as well as dynamic requests that need processing from the application server.
+
 - **Web Server**: A web server is used to **efficiently serve static content directly to clients**, reducing the load on the application server (WAS). It helps optimize resource usage and speeds up the process of delivering static resources like images, stylesheets, etc.
 - **Web Application Server (WAS)**: **Dynamic content,** such as personalized data and business logic, requires processing on the server-side. The WAS handles these dynamic requests, retrieving data from the database, and generating responses based on the client's requirements. By using a dedicated application server for this purpose, resources can be utilized more efficiently, and the server can handle a larger number of requests from multiple clients.
 
-## 🍱 Reasons for Separating Web Server and WAS
+## 🍱 **Benefits for Separating Web Server and WAS**
+
+Even though WAS has an internal web server and can handle static resources,  web server is commonly placed in front of the application server (WAS).
+
+By segregating the tasks between the web server and the application server, it becomes easier to manage and scale each component independently based on the specific demands of the application. **This separation of concerns and added functionality make it a common and effective server architecture for web applications.**
+
+By placing the web server in front of the application server, several benefits are achieved:
 
 1. **Load Distribution**: Web Servers efficiently handle static content, while WAS focuses on processing dynamic content and database access. Separating these functions allows for better load distribution, reducing the burden on each server and improving overall performance.
     - The web server serves static content directly, reducing the load on the backend.
@@ -28,7 +36,33 @@
 Overall, separating the roles of Web Server and WAS in a Web Service Architecture offers benefits in terms of performance, security, scalability, and maintenance.
 
 
-## 🏄‍♀️ **Real Life Example**
+
+## 👁️ **Overall Architecture**
+
+![Untitled](https://i.ibb.co/xzrSSrC/b.png)
+
+In summary, let me explain the overall architecture of the web application developed using React and Spring:
+
+1. **Client (Frontend):**
+    - Frontend is developed using React.
+    - It creates the user interface (UI) and renders screens using components.
+    - It handles user inputs and requests necessary data from the server for rendering.
+    - It operates within web browsers and can be developed using the React development server.
+2. **Server (Backend):**
+    - Backend is developed using Spring.
+    - It accepts and processes HTTP requests from the client.
+    - It handles business logic and interacts with the database.
+    - It defines API endpoints to provide data to the client.
+3. **Web Server:**
+    - In the production environment, React and Spring can be integrated to build a web server.
+    - The web server receives HTTP requests from the client and routes requests between React and Spring as needed.
+    - It integrates the client and backend into a single service.
+    - Web servers like Nginx, Apache, etc., can be used for this purpose.
+
+
+
+
+## 🏄‍♀️ Example
 
 ![a](https://i.ibb.co/LhYwN4B/a.png)
 
@@ -82,25 +116,3 @@ Here's an example of how Nginx, React, and each backend microservice (implemente
     
 
 In this setup, Nginx routes requests to either the React application or the backend microservice through the API Gateway, enabling a separation of concerns and a clear distinction between frontend and backend in the architecture.
-
-## 👁️ **Overall Architecture**
-
-![Untitled](https://i.ibb.co/xzrSSrC/b.png)
-
-In summary, let me explain the overall architecture of the web application developed using React and Spring:
-
-1. **Client (Frontend):**
-    - Frontend is developed using React.
-    - It creates the user interface (UI) and renders screens using components.
-    - It handles user inputs and requests necessary data from the server for rendering.
-    - It operates within web browsers and can be developed using the React development server.
-2. **Server (Backend):**
-    - Backend is developed using Spring.
-    - It accepts and processes HTTP requests from the client.
-    - It handles business logic and interacts with the database.
-    - It defines API endpoints to provide data to the client.
-3. **Web Server:**
-    - In the production environment, React and Spring can be integrated to build a web server.
-    - The web server receives HTTP requests from the client and routes requests between React and Spring as needed.
-    - It integrates the client and backend into a single service.
-    - Web servers like Nginx, Apache, etc., can be used for this purpose.
