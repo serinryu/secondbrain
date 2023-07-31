@@ -213,14 +213,19 @@ app.listen(port, () => {
 });
 ```
 
-### 2. **Proxy Server** using a Web Server (Nginx)
+### 2. Hosting Built Staic files using a **Web Server**
+
+- Nginx hosts the built static files, allowing users to access the application. Nginx typically runs the frontend application on standard HTTP/HTTPS ports such as 80 or 443.
+![img](https://i.ibb.co/x1S7pQt/3.png)
+
+### 3. Proxy Server using a **Web Server**
 
 - It is also possible to set up a proxy server using a web server (e.g., Nginx).
 - By using Nginx, the frontend and backend can be connected, and the backend API requests can be relayed through the proxy to communicate with the backend server.
 - This way, the frontend application communicates with the backend API server through the web server (Nginx).
 
-![img](https://i.ibb.co/x1S7pQt/3.png)
 ![img](https://i.ibb.co/LhYwN4B/a.png)
+
 
 
 ## 👩‍🚒 Development Environment
