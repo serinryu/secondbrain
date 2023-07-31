@@ -27,45 +27,8 @@
 
 Overall, separating the roles of Web Server and WAS in a Web Service Architecture offers benefits in terms of performance, security, scalability, and maintenance.
 
+
 ## 🏄‍♀️ **Real Life Example**
-
-### Architecture without Web Server (Option 1)
-
-1. **Development Environment**:
-    - During development, frontend (React + Typescript) and backend (Spring Boot) are typically run as separate servers.
-    - React development server runs on one port (e.g., 3000), and Spring development server runs on another port (e.g., 8080).
-    - This separation allows independent testing and debugging of the frontend and backend.
-2. **Production Environment**:
-    - Frontend and backend deployed as separate servers.
-    - Separate URLs for frontend (3000) and backend (8080) services.
-    - No load balancing or reverse proxy, resulting in increased backend load.
-    - Backend port numbers are directly exposed.
-3. **Challenges**:
-    - Increased backend load: Backend handles both dynamic and static content, potentially leading to performance issues.
-    - Security concerns: Direct exposure of backend port numbers may pose security risks.
-    - Scalability limitations: Difficult to scale efficiently without load balancing.
-    - Maintenance complexities: Updates and scalability may require more effort.
-    
-
-### Architecture with Web Server (Option 2)
-
-1. **Development Environment**:
-    - During development, frontend (React + Typescript) and backend (Spring Boot) are typically run as separate servers.
-    - React development server runs on one port (e.g., 3000), and Spring development server runs on another port (e.g., 8080).
-    - This separation allows independent testing and debugging of the frontend and backend.
-2. **Production Environment**:
-    - In the production environment, it is common to use a web server (e.g., Nginx) to integrate the frontend and backend into a single service.
-    - The web server acts as a reverse proxy, routing requests between React and Spring based on the request URL.
-    - Requests with "/api/" are forwarded to the backend (e.g., 8080 port), while other requests are sent to the frontend (e.g., 3000 port).
-    - This setup allows deploying frontend and backend as separate web applications accessible through a unified domain (e.g., example.com).
-3. **Benefits**:
-    - Load distribution: Frontend serves static content directly, reducing backend load.
-    - Security: Backend port numbers are concealed, improving security.
-    - Scalability: Load balancing allows adding multiple backend instances for increased capacity.
-    - Convenience: Easier maintenance, updates, and scalability.
-
-**Conclusion**:
-Using a web server in the architecture (Option 2) offers significant advantages, including better load distribution, improved security, scalability, and easier maintenance. It enables a more efficient and robust deployment, enhancing the overall performance of the web application. In contrast, not using a web server (Option 1) may lead to increased backend load, security vulnerabilities, and scalability limitations, making it less preferable for production environments.
 
 ![a](https://i.ibb.co/LhYwN4B/a.png)
 
