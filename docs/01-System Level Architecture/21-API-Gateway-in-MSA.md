@@ -1,4 +1,4 @@
-# Microservice Architecture (feat. API Gateway)
+# API Gateway in MSA
 
 ## Microservice Architecture (MSA)
 
