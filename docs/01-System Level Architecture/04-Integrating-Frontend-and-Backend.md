@@ -2,7 +2,7 @@
 
 ## CORS
 
-When integrating frontend and backend, one of the primary concerns is CORS (Cross-Origin Resource Sharing). Generally, web browsers enforce the Same-Origin Policy for security reasons, which blocks AJAX requests to resources on different origins (domains, ports, protocols, etc.). This policy is known as CORS. Therefore, when frontend and backend are hosted on different domains or ports, CORS issues may arise due to the browser's security policy.
+When integrating frontend and backend, one of the primary concerns is CORS (Cross-Origin Resource Sharing). Generally, web browsers enforce the Same-Origin Policy for security reasons, which blocks AJAX requests to resources on different origins (domains, ports, protocols, etc.). This policy is known as CORS. **Therefore, when frontend and backend are hosted on different domains or ports, CORS issues may arise due to the browser's security policy.**
 
 Using a proxy can bypass CORS issues by making it appear as if the frontend and backend are being served from the same domain/port. In the case of a proxy, server-to-server communication occurs, eliminating CORS problems.
 
@@ -11,7 +11,7 @@ For example, when a React application runs on port 3000 and a Spring Boot backen
 
 To sum up, these are the methods to avoid CORS problems.
 
-1. Environment separation during development: In the development stage, the frontend and backend can be run on separate development servers. During deployment, they can be bundled together under **one domain or subdomain**, effectively avoiding CORS issues.
+1. **Bundle together under one domain** : In the development stage, the frontend and backend can be run on separate development servers. During deployment, they can be bundled together under **one domain or subdomain**, effectively avoiding CORS issues.
 2. **CORS middleware configuration**: By setting up CORS-related configurations on the backend server, it is possible to allow requests from different origins. This enables the frontend to directly send requests to the backend.
 3. **Proxy Server**
 
@@ -45,7 +45,7 @@ To deploy the frontend application, developers typically use the command **`npm 
 
 ![img](https://i.ibb.co/8s8kdyv/22.png)
 
-**Case 2. Web Server (Port 80 or 443) + Spring (Port 8080) + MySQL (Port 3306) => ⭐️Development Environment!** 
+**Case 2. Web Server (Port 80 or 443) + Spring (Port 8080) + MySQL (Port 3306) => ⭐️Deployment Environment!** 
 
 - Minimum of 3 servers.
 - **Nginx hosts the built static files**, allowing users to access the application. Nginx typically runs the frontend application on standard HTTP/HTTPS ports such as 80 or 443.
