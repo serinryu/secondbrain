@@ -115,7 +115,7 @@ If threads are both writing to a shared variable often, **synchronized keyword**
 
 The `synchronized` mechanism was Java's first mechanism for synchronizing access to objects shared by multiple threads.
 
-### Solution : Atomic class
+#### Solution : Atomic class
 
 As it is mentioned above, the synchronized keyword is used to implement a lock-based(blocking) algorithm. However, the disadvantage of it is that waiting time of thread. Because at a time only one thread can operate on object so other threads have to wait.
 

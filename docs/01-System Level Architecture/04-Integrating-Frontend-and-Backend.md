@@ -41,20 +41,16 @@ To deploy the frontend application, developers typically use the command **`npm 
 
 **Case 1. React (Port 3000, Development Server) + Spring (Port 8080) + MySQL (Port 3306)**
 
-- Minimum of 3 servers.
-
 ![img](https://i.ibb.co/8s8kdyv/22.png)
 
 **Case 2. Web Server (Port 80 or 443) + Spring (Port 8080) + MySQL (Port 3306) => ⭐️Deployment Environment!** 
 
-- Minimum of 3 servers.
 - **Nginx hosts the built static files**, allowing users to access the application. Nginx typically runs the frontend application on standard HTTP/HTTPS ports such as 80 or 443.
 
 ![img](https://i.ibb.co/x1S7pQt/3.png)
 
 **Case 3. Web Server (Port 80 or 443) + React (Port 3000, Development Server) + Spring (Port 8080) + MySQL (Port 3306)**
 
-- Minimum of 4 servers.
 - **Nginx acts as a reverse proxy**, forwarding incoming requests to port 3000. The requests are then directed to the frontend server (React app) to facilitate interaction with clients.
 
 ![img](https://i.ibb.co/LhYwN4B/a.png)
